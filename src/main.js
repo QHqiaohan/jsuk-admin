@@ -10,8 +10,10 @@ import "babel-polyfill";
 import Axios from './util/http.js'
 import FmGrid from '@/components/grid/FmGrid';
 import Shop from '@/util/shop';
+
+
 var querystring = require('qs');
-Vue.use(ElementUI, { size: 'small' });
+Vue.use(ElementUI, {size: 'small'});
 // Vue.prototype.$axios = axios;
 Vue.config.productionTip = false;
 Axios.defaults.baseURL = '/proxy';
@@ -24,24 +26,110 @@ Vue.prototype.$shop = new Shop(Axios);
 //使用钩子函数对路由进行权限跳转
 router.beforeEach((to, from, next) => {
     const role = localStorage.getItem('ms_username');
-    if(!role && to.path !== '/login'){
+    if (!role && to.path !== '/login') {
         next('/login');
-    }else if(to.meta.permission){
+    } else if (to.meta.permission) {
         // 如果是管理员权限则可进入，这里只是简单的模拟管理员权限而已
         role === 'admin' ? next() : next('/403');
-    }else{
+    } else {
         // 简单的判断IE10及以下不进入富文本编辑器，该组件不兼容
-        if(navigator.userAgent.indexOf('MSIE') > -1 && to.path === '/editor'){
+        if (navigator.userAgent.indexOf('MSIE') > -1 && to.path === '/editor') {
             Vue.prototype.$alert('vue-quill-editor组件不兼容IE10及以下浏览器，请使用更高版本的浏览器查看', '浏览器不兼容通知', {
                 confirmButtonText: '确定'
             });
-        }else{
+        } else {
             next();
         }
     }
-})
+});
 
-new Vue({
+
+/**
+ * vue 通用选择器
+ * **/
+Vue.filter("toF", (value, dt) => { //默认2位小数点;
+    let v = value || 0, n = dt || 2;
+    return v.toFixed(n)
+});
+
+/*常用校验正则*/
+const Regex = {
+    phone: /0?(13|14|15|18|17)[0-9]{9}$/,
+    password: /^[a-zA-Z0-9]{8,20}$/,//密码
+    phoneCode: /^[\d]{6}$/, //验证码
+    realName: /^[\u4e00-\u9fa5A-Za-z]{2,20}$/,// 真实姓名
+    identity: /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)|(^\d{14}(\d|X|x)$)/,//身份证
+    bankCard: /^[\d]{12,21}$/, //银行卡
+    price: /^\d{1,12}(\.\d{1,2})?$/,
+    numInt: /^[\d]{1,20}$/,//整数
+}
+
+
+/*query to param*/
+const toParams = function (s) {
+    s = s || '';
+    const arr = (s.split("?")[1] || s || '').split("&");
+    const o = {};
+    if (!arr[0]) {
+        return o;
+    }
+    arr.forEach(function (x) {
+        var ar = x.split("=");
+        o[ar[0]] = ar[1]
+    });
+    return o;
+};
+
+
+/*param to query*/
+const toQuery = function (pms) {
+    let str = "";
+    for (let i in pms) {
+        if (pms[i]) {
+            if (Array.isArray(pms[i])) {
+                for (const j of pms[i]) {
+                    str += (`${i}=${j}&`);
+                }
+            } else {
+                str += (`${i}=${pms[i]}&`);
+            }
+        }
+    }
+    return str.substr(0, str.length - 1);
+};
+
+
+Vue.prototype.$pub = {Regex, toParams, toQuery};
+
+
+const vue = new Vue({
     router,
     render: h => h(App)
-}).$mount('#app');
+});
+
+vue.$mount('#app');
+
+const dealError = (code, message) => {
+    switch (code) {
+        case 203:
+        case -100:
+            vue.$message.error(message || '登录过期');
+        case -99:
+            vue.$router.push('/login');
+            break;
+        case 400:
+            vue.$message.error(message || '参数错误');
+            break;
+        case 401:
+            vue.$router.push('/noperm');
+            break;
+        case 500:
+        default:
+            vue.$message.error(message || '请求失败');
+            break;
+    }
+};
+
+export {
+    dealError
+}

@@ -5,7 +5,7 @@
             商品列表
         </el-row>
         <el-container direction="vertical">
-            <fm-grid url="/api/v1/wgoods/list" ref="grid" method="get" :params="['kw','brandId','categoryId','status']">
+            <fm-grid url="/wgoods/list" ref="grid" method="get" :params="['kw','brandId','categoryId','status']">
 
 
                 <template slot-scope="{rows,loading,search}">

@@ -9,7 +9,7 @@ class Shop {
       if (this.categories) {
         return resolve(this.categories);
       }
-      this.axios.get('/api/v1/goodsCategory/list')
+      this.axios.get('/goodsCategory/list')
         .then(({data: {data}}) => {
           this.categories = recu(data, undefined, 'id', 'parentId');
           resolve(this.categories);
@@ -22,7 +22,7 @@ class Shop {
       if (this.brands) {
         return resolve(this.brands);
       }
-      this.axios.get('/api/v1/goodsBrand/list')
+      this.axios.get('/goodsBrand/list')
         .then(({data: {data}}) => {
           this.brands = data;
           resolve(this.brands);
@@ -35,7 +35,7 @@ class Shop {
       if(this.labels){
         return resolve(this.labels);
       }
-      this.axios.get('/api/v1/goodsLabel/list')
+      this.axios.get('/goodsLabel/list')
         .then(({data: {data}}) => {
           this.labels = data;
           resolve(this.labels);
@@ -48,7 +48,7 @@ class Shop {
       if(this.attributes){
         return resolve(this.attributes);
       }
-      this.axios.get('/api/v1/shopAttribute/list')
+      this.axios.get('/shopAttribute/list')
         .then(({data: {data}}) => {
           this.attributes = data;
           resolve(this.attributes);

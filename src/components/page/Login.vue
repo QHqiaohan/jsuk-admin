@@ -63,7 +63,7 @@
                                     console.log('res.data', res.data);
                                     if(res.data.code===200){
                                         console.log('res.data.code', res.data.code);
-                                        localStorage.setItem('token',res.data.data);
+                                        localStorage.setItem('token',res.data.data.token);
                                         localStorage.setItem('ms_username',this.ruleForm.phone);
                                         this.$router.push({ path: '/' })
                                     }
