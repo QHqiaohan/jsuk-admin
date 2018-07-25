@@ -1,6 +1,7 @@
 import axios from 'axios';
 import router from '../router';
 import {dealError} from "../main";
+import {stringify} from 'query-string';
 
 const Axios = axios.create({
   timeout: 100000,
@@ -9,7 +10,7 @@ const Axios = axios.create({
   headers: {
       "Content-Type": "application/x-www-form-urlencoded;charset=utf-8"
   }
-})
+});
 // POST传参序列化(添加请求拦截器)
 Axios.interceptors.request.use(
   config => {
@@ -46,6 +47,14 @@ Axios.interceptors.response.use(function (response) {
     dealError(status , data.message);
     return Promise.reject(e);
 });
+
+/**
+ * 表单数据编码
+ */
+Axios.form = data => {
+  return stringify(data,{arrayFormat: 'bracket'});
+};
+
 
 // // 返回状态判断(添加响应拦截器)
 // Axios.interceptors.response.use(
