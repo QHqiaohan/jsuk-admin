@@ -10,7 +10,7 @@
     "build:dll": "webpack --config build/webpack.dll.conf.js",
     "ci":"mvn-ci",
     "uploadp":"yarn ci upload -e prod",
-    "exep":"yarn ci exe -e prod deploy_prod.sh",
+    "exep":"yarn ci exe -e prod deploy-prod.sh",
     "pkg":"yarn ci clean && yarn ci package",
     "prod":"yarn pkg && yarn uploadp && yarn exep"
   },
