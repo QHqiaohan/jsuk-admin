@@ -56,6 +56,19 @@ class Shop {
     });
   }
 
+  getShops(){
+    return new Promise((resolve,reject) =>{
+      if(this.shops){
+        return resolve(this.shops);
+      }
+      this.axios.get('/shop/list')
+        .then(({data: {data}}) => {
+          this.shops = data;
+          resolve(this.shops);
+        }).catch(reject);
+    });
+  }
+
 }
 
 
