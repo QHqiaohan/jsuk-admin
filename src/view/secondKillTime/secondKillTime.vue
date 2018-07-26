@@ -5,7 +5,8 @@
       秒杀时间段列表
     </el-row>
     <el-container direction="vertical">
-      <fm-grid url="/shopRushBuy/page" @initData="initData" ref="grid" method="get" :params="['kw','brandId','categoryId','status']">
+      <fm-grid url="/shopRushBuy/page" @initData="initData" ref="grid" method="get"
+               :params="['kw','brandId','categoryId','status']">
 
 
         <template slot-scope="{rows,loading,search}">
@@ -78,7 +79,7 @@
 
   export default {
 
-    components:{KillTimeAe},
+    components: {KillTimeAe},
 
     mounted() {
       this.$nextTick(() => {
@@ -89,43 +90,45 @@
 
     methods: {
 
-      del(id,name){
+      del(id, name) {
         this.$confirm(`你确定要删除${name}?`)
-          .then( e =>{
-            this.$axios.delete('/shopRushBuy',{params:{id}})
-              .then(() =>{
+          .then(e => {
+            this.$axios.delete('/shopRushBuy', {params: {id}})
+              .then(() => {
                 this.$refs.grid.search();
               });
           })
-          .catch( e=>{});
+          .catch(e => {
+          });
       },
 
       categoryChange() {
 
       },
 
-      gSearch(status){
-        this.$refs.grid.search({...this.query,status},1);
+      gSearch(status) {
+        this.$refs.grid.search({...this.query, status}, 1);
       },
 
-      useChange(id,name){
-        if(this.switches[id] == false){
-          this.$confirm(`确认要禁用${name}?`).then(e=>{
-            this.$axios.post('/shopRushBuy/update',this.$axios.form({id,isUse:0}))
-              .then(() =>{
+      useChange(id, name) {
+        if (this.switches[id] == false) {
+          this.$confirm(`确认要禁用${name}?`).then(e => {
+            this.$axios.post('/shopRushBuy/update', this.$axios.form({id, isUse: 0}))
+              .then(() => {
                 this.$refs.grid.search();
               });
-          }).catch(e=>{})
+          }).catch(e => {
+          })
         } else {
-          this.$axios.post('/shopRushBuy/update',this.$axios.form({id,isUse:1}))
-            .then(() =>{
+          this.$axios.post('/shopRushBuy/update', this.$axios.form({id, isUse: 1}))
+            .then(() => {
               this.$refs.grid.search();
             });
         }
       },
 
-      initData(rows){
-        for(const {id,isUse} of rows){
+      initData(rows) {
+        for (const {id, isUse} of rows) {
           this.switches[id] = isUse == 1;
         }
       }
@@ -138,9 +141,9 @@
         query: {},
         categories: [],
         brands: [],
-        count:{},
-        switches:{},
-        names:{}
+        count: {},
+        switches: {},
+        names: {}
       }
     }
   }

@@ -5,24 +5,17 @@ import {stringify} from 'query-string';
 
 const Axios = axios.create({
   timeout: 100000,
-  // responseType: "json",
   withCredentials: true, // 是否允许带cookie这些
-  headers: {
-      "Content-Type": "application/x-www-form-urlencoded;charset=utf-8"
-  }
+  // headers: {
+  //     "Content-Type": "application/x-www-form-urlencoded;charset=utf-8"
+  // }
 });
-// POST传参序列化(添加请求拦截器)
 Axios.interceptors.request.use(
   config => {
-    // 在发送请求之前做某件事
-    // 若是有做鉴权token , 就给头部带上token
     let token = localStorage.getItem('token');
-    if (token) {  // 判断是否存在token，如果存在的话，则每个http header都加上token
-      // config.headers.ACCESS_TOKEN = token;
+    if (token) {
       config.headers['access-token'] = token;
-      // console.log('interceptors config=',config)
     }
-    // console.log(config)
     return config
   },
   error => {
