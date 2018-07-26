@@ -48,39 +48,15 @@
                     {
                         icon: 'el-icon-setting',
                         index: '2',
-                        title: '商品',
+                        title: '商品管理',
                         subs: [
                             {
                                 index: 'commodityList',
                                 title: '商品列表'
                             },
                             {
-                                index: 'commodityAdd',
-                                title: '添加商品'
-                            },
-                            {
-                                index: 'commodityRecycle',
-                                title: '商品回收站'
-                            },
-                            {
                                 index: 'commodityEvaluate',
                                 title: '商品评价'
-                            },
-                            {
-                                index: 'commodityClassification',
-                                title: '商品分类'
-                            },
-                            {
-                                index: 'commodityType',
-                                title: '商品类型'
-                            },
-                            {
-                                index: 'brandManagement',
-                                title: '品牌管理'
-                            },
-                            {
-                                index: 'pictureManagement',
-                                title: '图片管理'
                             }
                         ]
                     },

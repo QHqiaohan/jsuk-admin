@@ -1,11 +1,11 @@
 <template>
 
     <div>
-        <el-row style="padding-bottom: 20px;">
+       <!--<el-row style="padding-bottom: 20px;">
             商品列表
-        </el-row>
+        </el-row>-->
         <el-container direction="vertical">
-            <fm-grid url="/wgoods/list" ref="grid" method="get" :params="['kw','brandId','categoryId','status']">
+            <fm-grid url="/shopGoods/addShopGoodsList" ref="grid" method="get" :params="['kw','brandId','categoryId','status']">
 
 
                 <template slot-scope="{rows,loading,search}">
@@ -22,16 +22,16 @@
                         <!--添加-->
                         <!--</el-button>-->
                         <!--</div>-->
-                        <el-row style="padding-bottom: 20px;">
+                        <!--<el-row style="padding-bottom: 20px;">
                             <el-button @click="gSearch('all')">全部商品{{count.all}}</el-button>
                             <el-button @click="gSearch('wcm')">待审核{{count.wcm}}</el-button>
                             <el-button @click="gSearch('upr')">已上架{{count.upr}}</el-button>
                             <el-button @click="gSearch('lwr')">已下架{{count.lwr}}</el-button>
-                        </el-row>
+                        </el-row>-->
                         <el-row style="padding-bottom: 20px;">
                             <span>输入搜索:</span>
                             <el-input v-model="query.kw" style="width:200px;"/>
-                            <span>商品分类:</span>
+                            <!--<span>商品分类:</span>
                             <el-cascader
                                 expand-trigger="hover"
                                 :options="categories"
@@ -47,7 +47,7 @@
                                     :label="item.name"
                                     :value="item.id">
                                 </el-option>
-                            </el-select>
+                            </el-select>-->
                             <el-button @click="search(query,1)">查询结果</el-button>
                         </el-row>
 
@@ -58,18 +58,38 @@
                         v-loading="loading"
                         style="width: 100%;padding-bottom:20px;border-bottom:none;">
                         <el-table-column
-                            prop="code"
-                            label="编码"
+                            prop="id"
+                            label="编号"
                             width="180">
                         </el-table-column>
                         <el-table-column
-                            prop="name"
-                            label="名称"
+                            prop="goodsName"
+                            label="商品图片"
                             width="180">
                         </el-table-column>
                         <el-table-column
-                            prop="description"
-                            label="描述"
+                            prop="goodsName"
+                            label="商品名称"
+                            width="180">
+                        </el-table-column>
+                         <el-table-column
+                            prop="goodsName"
+                            label="价格"
+                            width="180">
+                          </el-table-column>
+                        <el-table-column
+                            prop="status"
+                            label="状态"
+                            width="180">
+                        </el-table-column>
+                        <el-table-column
+                            prop="saleAmont"
+                            label="销量"
+                            width="180">
+                        </el-table-column>
+                        <el-table-column
+                            prop="categoryInfo.name"
+                            label="商品分类"
                             width="180">
                         </el-table-column>
                         <el-table-column
