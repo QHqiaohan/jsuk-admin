@@ -137,7 +137,7 @@
             if (status !== 200) return;
             const {records, total} = data;
             records && (this.rows = records);
-            this.$emit('initData',this.rows);
+            this.$emit('init-data',this.rows);
             total && (this.total = total);
           }).catch(e => {
           }).finally(() => {

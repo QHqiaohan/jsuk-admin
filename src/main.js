@@ -61,7 +61,7 @@ Vue.filter("toF", (value, dt) => { //默认2位小数点;
  * vue 通用选择器
  * **/
 Vue.filter("time", (value, dt) => { //默认2位小数点;
-  let v = String(value), n = dt || 8;
+  let v = value||'', n = dt || 8;
   const len = v.length;
   return v.substring(len - n, len);
 });
@@ -123,31 +123,27 @@ const vue = new Vue({
 
 vue.$mount('#app');
 
-// const dealError = (code, message) => {
-//
-//   console.log( 'error' + code);
-//
-//   switch (code) {
-//     case 203:
-//     case -100:
-//       vue.$message.error(message || '登录过期');
-//     case -99:
-//       // vue.$router.push('/login');
-//       break;
-//     case 400:
-//       vue.$message.error(message || '参数错误');
-//       break;
-//     case 401:
-//       vue.$router.push('/noperm');
-//       break;
-//     case 500:
-//     default:
-//       vue.$message.error(message || '请求失败');
-//       break;
-//   }
-// };
+const dealError = (code, message) => {
+  switch (code) {
+    case 203:
+    case -100:
+      vue.$message.error(message || '登录过期');
+    case -99:
+      vue.$router.push('/login');
+      break;
+    case 400:
+      vue.$message.error(message || '参数错误');
+      break;
+    case 401:
+      vue.$router.push('/noperm');
+      break;
+    case 500:
+    default:
+      vue.$message.error(message || '请求失败');
+      break;
+  }
+};
 
-const dealError = undefined;
 
 export {
   dealError

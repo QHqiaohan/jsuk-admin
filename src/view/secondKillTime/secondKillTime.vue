@@ -5,7 +5,7 @@
       秒杀时间段列表
     </el-row>
     <el-container direction="vertical">
-      <fm-grid url="/shopRushBuy/page" @initData="initData" ref="grid" method="get"
+      <fm-grid url="/shopRushBuy/page" @init-data="initData" ref="grid" method="get"
                :params="['kw','brandId','categoryId','status']">
 
 
