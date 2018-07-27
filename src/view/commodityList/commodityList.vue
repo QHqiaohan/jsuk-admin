@@ -60,12 +60,12 @@
                         <el-table-column
                             prop="id"
                             label="编号"
-                            width="180">
+                            width="100">
                         </el-table-column>
                         <el-table-column
                             prop="mainImg"
                             label="商品图片"
-                            width="180">
+                            width="120">
                             <template slot-scope="scope">
                                 <img :src="scope.row.goodsImg" alt="" style="width: 50px;height: 50px">
                             </template>
@@ -83,7 +83,7 @@
                         <el-table-column
                            prop="status"
                             label="状态"
-                            width="180">
+                            width="100">
                               <template slot-scope="scope">
                                   <span v-if="scope.row.status===0">待审核 </span>
                                    <span v-else-if="scope.row.status===1">在售 </span>
@@ -93,12 +93,12 @@
                         <el-table-column
                             prop="saleAmont"
                             label="销量"
-                            width="180">
+                            width="100">
                         </el-table-column>
                         <el-table-column
                             prop="categoryInfo.name"
                             label="商品分类"
-                            width="180">
+                            width="100">
                         </el-table-column>
                         <el-table-column
                             label="操作">
