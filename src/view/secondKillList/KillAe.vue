@@ -77,7 +77,7 @@
         this.type = 'edit';
         this.$axios.get(`/shopRushBuyActivity/get`, {params: {id}})
           .then(({data: {data}}) => {
-            // console.log(data);
+            console.log(data);
             data.isUse = data.isUse == 1;
             this.form = data;
           });

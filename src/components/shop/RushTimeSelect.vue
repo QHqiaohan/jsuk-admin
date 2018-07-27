@@ -34,10 +34,12 @@
     watch:{
 
       value(newVal){
+        console.log(newVal);
         clearTimeout(this.timeOut);
         this.timeOut = setTimeout(()=>{
           if(!self){
             this.id = newVal;
+            console.log(newVal);
           }
         },50);
       }
