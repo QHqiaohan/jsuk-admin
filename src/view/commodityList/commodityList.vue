@@ -5,7 +5,7 @@
             商品列表
         </el-row>-->
         <el-container direction="vertical">
-            <fm-grid url="/shopGoods/addShopGoodsList" ref="grid" method="get" :params="['kw','brandId','categoryId','status']">
+            <fm-grid url="/wgoods/list" ref="grid" method="get" :params="['kw','brandId','categoryId','status']">
 
 
                 <template slot-scope="{rows,loading,search}">
@@ -30,7 +30,7 @@
                         </el-row>-->
                         <el-row style="padding-bottom: 20px;">
                             <span>输入搜索:</span>
-                            <el-input v-model="query.kw" style="width:200px;"/>
+                            <el-input v-model="query.kw"  placeholder="商品名称/商品货号" style="width:200px;"/>
                             <!--<span>商品分类:</span>
                             <el-cascader
                                 expand-trigger="hover"
@@ -60,12 +60,15 @@
                         <el-table-column
                             prop="id"
                             label="编号"
-                            width="180">
+                            width="100">
                         </el-table-column>
                         <el-table-column
-                            prop="goodsName"
+                            prop="mainImg"
                             label="商品图片"
-                            width="180">
+                            width="120">
+                            <template slot-scope="scope">
+                                <img :src="scope.row.goodsImg" alt="" style="width: 50px;height: 50px">
+                            </template>
                         </el-table-column>
                         <el-table-column
                             prop="goodsName"
@@ -73,24 +76,29 @@
                             width="180">
                         </el-table-column>
                          <el-table-column
-                            prop="goodsName"
+                            prop="price"
                             label="价格"
                             width="180">
                           </el-table-column>
                         <el-table-column
-                            prop="status"
+                           prop="status"
                             label="状态"
-                            width="180">
+                            width="100">
+                              <template slot-scope="scope">
+                                  <span v-if="scope.row.status===0">待审核 </span>
+                                   <span v-else-if="scope.row.status===1">在售 </span>
+                                   <span v-else>已下架 </span>
+                                </template>
                         </el-table-column>
                         <el-table-column
                             prop="saleAmont"
                             label="销量"
-                            width="180">
+                            width="100">
                         </el-table-column>
                         <el-table-column
                             prop="categoryInfo.name"
                             label="商品分类"
-                            width="180">
+                            width="100">
                         </el-table-column>
                         <el-table-column
                             label="操作">
