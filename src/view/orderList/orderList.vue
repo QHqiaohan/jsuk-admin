@@ -23,12 +23,15 @@
             <!--</el-button>-->
             <!--</div>-->
             <el-row style="padding-bottom: 20px;">
-              <el-button @click="gSearch('all')">全部订单{{count.all}}</el-button>
-              <el-button @click="gSearch('dpay')">待付款{{count.dpay}}</el-button>
-              <el-button @click="gSearch('wdlr')">待发货{{count.wdlr}}</el-button>
-              <el-button @click="gSearch('dlrd')">已发货{{count.dlrd}}</el-button>
-              <el-button @click="gSearch('succ')">已完成{{count.succ}}</el-button>
-              <el-button @click="gSearch('clsd')">关闭{{count.clsd}}</el-button>
+              <el-button @click="gSearch('all')">全部 {{count.all}}</el-button>
+              <el-button @click="gSearch('dpay')">待付款 {{count.dpay}}</el-button>
+              <el-button @click="gSearch('wdlr')">待发货 {{count.wdlr}}</el-button>
+              <el-button @click="gSearch('dlrd')">已发货 {{count.dlrd}}</el-button>
+              <el-button @click="gSearch('succ')">交易成功 {{count.succ}}</el-button>
+              <el-button @click="gSearch('rfmy')">退款 {{count.rfmy}}</el-button>
+              <el-button @click="gSearch('rfgd')">退货 {{count.rfgd}}</el-button>
+              <el-button @click="gSearch('clsd')">拒绝 {{count.clsd}}</el-button>
+              <el-button @click="gSearch('casl')">取消 {{count.casl}}</el-button>
             </el-row>
 
             <el-row style="padding-bottom: 20px;">
@@ -61,27 +64,52 @@
             v-loading="loading"
             style="width: 100%;padding-bottom:20px;border-bottom:none;">
             <el-table-column
-              prop="code"
-              label="编码"
+              prop="orderNum"
+              label="订单编号"
               width="180">
             </el-table-column>
             <el-table-column
-              prop="name"
-              label="名称"
+              prop="creatTime"
+              label="提交时间"
               width="180">
+            </el-table-column>
+            <el-table-column
+              prop="userId"
+              label="用户"
+              width="180">
+            </el-table-column>
+            <el-table-column
+              prop="orderPrice"
+              label="金额"
+              width="180">
+            </el-table-column>
+            <el-table-column
+              prop="payType"
+              label="支付方式"
+              width="80">
             </el-table-column>
             <el-table-column
               prop="description"
-              label="描述"
-              width="180">
+              label="订单来源"
+              width="80">
             </el-table-column>
             <el-table-column
-              label="操作">
-              <template slot-scope="{row}">
-                <el-button type="text" @click="$router.push(`/order/detail/${row.id}`)">查看订单</el-button>
-                <el-button type="text" @click="close(row.id)">关闭订单</el-button>
-              </template>
+              prop="status"
+              label="订单状态"
+              width="80">
             </el-table-column>
+            <el-table-column
+              prop="platformNumber"
+              label="物流编号"
+              width="180">
+            </el-table-column>
+            <!--<el-table-column-->
+              <!--label="操作">-->
+              <!--<template slot-scope="{row}">-->
+                <!--<el-button type="text" @click="$router.push(`/order/detail/${row.id}`)">查看订单</el-button>-->
+                <!--<el-button type="text" @click="close(row.id)">关闭订单</el-button>-->
+              <!--</template>-->
+            <!--</el-table-column>-->
           </el-table>
         </template>
 
