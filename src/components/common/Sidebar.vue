@@ -29,258 +29,192 @@ export default {
   data() {
     return {
       collapse: false,
-      items: [
-        {
+      items: [{
           icon: "el-icon-setting",
           index: "1",
           title: "系统首页",
-          subs: [
-            {
+          subs: [{
               index: "dashboard",
               title: "系统首页"
-            },
-            {
+            }, {
               index: "accountSetting",
               title: "个人信息"
-            }
-          ]
-        },
-        {
+            }]
+        }, {
           icon: "el-icon-setting",
           index: "2",
           title: "商品管理",
-          subs: [
-            {
+          subs: [{
               index: "commodityList",
               title: "商品列表"
-            },
-            {
+            }, {
               index: "commodityEvaluate",
               title: "商品评价"
-            }
-          ]
-        },
-        {
+            }]
+        }, {
           icon: "el-icon-setting",
           index: "3",
           title: "订单管理",
-          subs: [
-            {
+          subs: [{
               index: "orderList",
               title: "订单列表"
-            },
-            {
+            }, {
               index: "orderDistribution",
               title: "同城配送订单"
-            },
-            {
+            }, {
               index: "confirmReceipt",
               title: "确认收货"
-            },
-            {
+            }, {
               index: "orderSetting",
               title: "订单设置"
-            },
-            {
+            }, {
               index: "returnGoods",
               title: "退货申请处理"
-            },
-            {
+            }, {
               index: "refund",
               title: "退款申请处理"
-            },
-            {
+            }, {
               index: "returnGoodsReason",
               title: "退货原因处理"
-            },
-            {
+            }, {
               index: "express",
               title: "快递管理"
-            },
-            {
+            }, {
               index: "deliverGoods",
               title: "发货点信息管理"
-            }
-          ]
-        },
-        {
+            }]
+        }, {
           icon: "el-icon-setting",
           index: "4",
           title: "库存",
-          subs: [
-            {
+          subs: [{
               index: "warehousing",
               title: "商品入库"
-            },
-            {
+            }, {
               index: "delivery",
               title: "商品出库"
-            }
-          ]
-        },
-        {
+            }]
+        }, {
           icon: "el-icon-setting",
           index: "5",
           title: "用户",
-          subs: [
-            {
+          subs: [{
               index: "userList",
               title: "用户列表"
-            },
-            {
+            }, {
               index: "ruleSetting",
               title: "更多规则设置"
-            },
-            {
+            }, {
               index: "membershipGrade",
               title: "会员等级"
-            }
-          ]
-        },
-        {
+            }]
+        }, {
           icon: "el-icon-setting",
           index: "6",
           title: "促销",
-          subs: [
-            {
+          subs: [{
               index: "secondKillList",
               title: "秒杀活动列表"
-            },
-            {
+            }, {
               index: "secondKillTime",
               title: "时间段列表"
-            },
-            {
+            }, {
               index: "couponList",
               title: "优惠卷列表"
-            },
-            {
+            }, {
               index: "couponAdd",
               title: "优惠卷添加"
-            },
-            {
+            }, {
               index: "recommendCommodities",
               title: "首页推荐商品设置"
-            }
-          ]
-        },
-        {
+            }]
+        }, {
           icon: "el-icon-setting",
           index: "7",
           title: "设置",
-          subs: [
-            {
+          subs: [{
               index: "special",
               title: "专题管理"
-            },
-            {
+            }, {
               index: "PutForward",
               title: "提现管理"
-            },
-            {
+            }, {
               index: "basicSetup",
               title: "基本设置"
-            },
-            {
+            }, {
               index: "messageTi",
               title: "消息提醒"
-            },
-            {
+            }, {
               index: "freight",
               title: "运费管理"
-            },
-            {
+            }, {
               index: "logisticsCompany",
               title: "物流公司"
-            },
-            {
+            }, {
               index: "paymentSetting",
               title: "支付设置"
-            },
-            {
+            }, {
               index: "region",
               title: "区域管理"
-            }
-          ]
-        },
-        {
+            }]
+        }, {
           icon: "el-icon-setting",
           index: "8",
           title: "商家管理",
-          subs: [
-            {
+          subs: [{
               index: "business",
               title: "商家列表"
-            },
-            {
+            }, {
               index: "businessAudit",
               title: "商家审核"
-            }
-          ]
-        },
-        {
+            }]
+        }, {
           icon: "el-icon-setting",
           index: "9",
           title: "配送管理",
-          subs: [
-            {
+          subs: [{
               index: "distributionPersonnel",
               title: "配送人员"
-            },
-            {
+            }, {
               index: "distributionAudit",
               title: "配送审核"
-            }
-          ]
-        },
-        {
+            }]
+        }, {
           icon: "el-icon-setting",
           index: "10",
           title: "框架自带",
-          subs: [
-            {
+          subs: [{
               index: "table",
               title: "基础表格"
-            },
-            {
+            }, {
               index: "tabs",
               title: "tab选项卡"
-            },
-            {
+            }, {
               index: "form",
               title: "基本表单"
-            },
-            {
+            }, {
               index: "editor",
               title: "富文本编辑器"
-            },
-            {
+            }, {
               index: "markdown",
               title: "markdown编辑器"
-            },
-            {
+            }, {
               index: "upload",
               title: "文件上传"
-            },
-            {
+            }, {
               index: "charts",
               title: "schart图表"
-            },
-            {
+            }, {
               index: "drag",
               title: "拖拽列表"
-            },
-            {
+            }, {
               index: "permission",
               title: "权限测试"
-            },
-            {
+            }, {
               index: "404",
               title: "404页面"
-            }
-          ]
-        },
-        {
+            }]
+        }, {
           icon: "el-icon-warning",
           index: "roleManagement",
           title: "角色管理"
