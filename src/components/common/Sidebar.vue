@@ -60,12 +60,12 @@
             index: "orderList",
             title: "订单列表"
           }, {
-            index: "orderDistribution",
-            title: "同城配送订单"
-          }, {
-            index: "confirmReceipt",
-            title: "确认收货"
-          }, {
+          //   index: "orderDistribution",
+          //   title: "同城配送订单"
+          // }, {
+          //   index: "confirmReceipt",
+          //   title: "确认收货"
+          // }, {
             index: "orderSetting",
             title: "订单设置"
           }, {
@@ -74,27 +74,27 @@
           }, {
             index: "refund",
             title: "退款申请处理"
-          }, {
-            index: "returnGoodsReason",
-            title: "退货原因处理"
-          }, {
-            index: "express",
-            title: "快递管理"
-          }, {
-            index: "deliverGoods",
-            title: "发货点信息管理"
+          // }, {
+          //   index: "returnGoodsReason",
+          //   title: "退货原因处理"
+          // }, {
+          //   index: "express",
+          //   title: "快递管理"
+          // }, {
+          //   index: "deliverGoods",
+          //   title: "发货点信息管理"
           }]
-        }, {
-          icon: "el-icon-setting",
-          index: "4",
-          title: "库存",
-          subs: [{
-            index: "warehousing",
-            title: "商品入库"
-          }, {
-            index: "delivery",
-            title: "商品出库"
-          }]
+        // }, {
+        //   icon: "el-icon-setting",
+        //   index: "4",
+        //   title: "库存",
+        //   subs: [{
+        //     index: "warehousing",
+        //     title: "商品入库"
+        //   }, {
+        //     index: "delivery",
+        //     title: "商品出库"
+        //   }]
         }, {
           icon: "el-icon-setting",
           index: "5",
@@ -120,12 +120,12 @@
             index: "secondKillTime",
             title: "时间段列表"
           }, {
-            index: "couponList",
-            title: "优惠卷列表"
-          }, {
-            index: "couponAdd",
-            title: "优惠卷添加"
-          }, {
+          //   index: "couponList",
+          //   title: "优惠卷列表"
+          // }, {
+          //   index: "couponAdd",
+          //   title: "优惠卷添加"
+          // }, {
             index: "recommendCommodities",
             title: "首页推荐商品设置"
           }]
