@@ -183,39 +183,38 @@
         }, {
           icon: "el-icon-setting",
           index: "10",
-          title: "框架自带",
-          subs: [{
-            index: "table",
-            title: "基础表格"
-          }, {
-            index: "tabs",
-            title: "tab选项卡"
-          }, {
-            index: "form",
-            title: "基本表单"
-          }, {
-            index: "editor",
-            title: "富文本编辑器"
-          }, {
-            index: "markdown",
-            title: "markdown编辑器"
-          }, {
-            index: "upload",
-            title: "文件上传"
-          }, {
-            index: "charts",
-            title: "schart图表"
-          }, {
-            index: "drag",
-            title: "拖拽列表"
-          }, {
-            index: "permission",
-            title: "权限测试"
-          }, {
-            index: "404",
-            title: "404页面"
-          }]
-        }, {
+          title: "财务管理",
+          subs: [
+            {
+            index: "userTiXianRecord",
+            title: "提现记录"
+          },
+            {
+            index: "userRechargeRecord",
+            title: "充值记录"
+          }
+
+          ]
+        },
+          {
+            icon: "el-icon-setting",
+            index: "11",
+            title: "权限管理",
+            subs: [{
+              index: "managerUserList",
+              title: "成员管理"
+            }, {
+              index: "addManagerUser",
+              title: "添加成员"
+            },
+              {
+                index: "menuManager",
+                title: "权限设置"
+              }]
+          },
+
+
+          {
           icon: "el-icon-warning",
           index: "roleManagement",
           title: "角色管理"

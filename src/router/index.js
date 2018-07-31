@@ -261,6 +261,45 @@ export default new Router({
 
       },
       //add end
+
+      {
+        path: '/userTiXianRecord',
+        component: resolve => require(['../view/userTiXianRecord/userTiXian.vue'], resolve),
+        meta: {
+          title: '提现记录'
+        }
+      },
+      {
+        path: '/userRechargeRecord',
+        component: resolve => require(['../view/userRechargeRecord/userRechargeRecord.vue'], resolve),
+        meta: {
+          title: '充值记录'
+        }
+      },
+
+      {
+        path: '/managerUserList',
+        component: resolve => require(['../view/managerUserList/managerUserList.vue'], resolve),
+        meta: {
+          title: '成员管理'
+        }
+      },
+      {
+        path: '/addManagerUser',
+        component: resolve => require(['../view/addManagerUser/addManagerUser.vue'], resolve),
+        meta: {
+          title: '添加成员'
+        }
+      },
+      {
+        path: '/menuManager',
+        component: resolve => require(['../view/menuManager/menuManager.vue'], resolve),
+        meta: {
+          title: '权限设置'
+        }
+      },
+
+
       {
         path: '/dashboard',
         component: resolve => require(['../components/page/Dashboard.vue'], resolve),
