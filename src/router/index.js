@@ -238,15 +238,9 @@ export default new Router({
         path: '/business',
         component: resolve => require(['../view/business/business.vue'], resolve),
         meta: {
-          title: '商家列表'
+          title: '商户列表'
         }
-      }, {
-        path: '/businessAudit',
-        component: resolve => require(['../view/businessAudit/businessAudit.vue'], resolve),
-        meta: {
-          title: '商家审核'
-        }
-      }, {
+      },  {
         path: '/distributionPersonnel',
         component: resolve => require(['../view/distributionPersonnel/distributionPersonnel.vue'], resolve),
         meta: {

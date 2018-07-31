@@ -163,10 +163,15 @@
       },
 
       del(id) {
-        this.$axios.post('/wgoods/del', this.$axios.form({goodsId: id}))
-          .then(({data}) => {
-            this.$refs.grid.search();
-            this.loadCount();
+        this.$confirm(`确定要删除?`)
+          .then(e => {
+            this.$axios.post('/wgoods/del', this.$axios.form({goodsId: id}))
+              .then(({data}) => {
+                this.$refs.grid.search();
+                this.loadCount();
+              });
+          })
+          .catch(e => {
           });
       },
       review(id,flag) {
