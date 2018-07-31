@@ -105,7 +105,7 @@
               <template slot-scope="{row}">
                 <dict :dkey="row.status" code="OrderStatus">
                   <template slot-scope="{data}">
-                    {{data.value}}
+                   {{data.value}}
                   </template>
                 </dict>
               </template>
@@ -118,8 +118,7 @@
             <el-table-column
               label="操作">
               <template slot-scope="{row}">
-                <el-button type="text" @click="$router.push(`/order/detail/${row.id}`)">查看订单</el-button>
-                <el-button type="text" @click="close(row.id)">修改价格</el-button>
+                <el-button v-if="0===row.status" type="text" @click="">修改价格</el-button>
               </template>
             </el-table-column>
           </el-table>
