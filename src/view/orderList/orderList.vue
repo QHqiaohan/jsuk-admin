@@ -84,9 +84,15 @@
               width="180">
             </el-table-column>
             <el-table-column
-              prop="payType"
               label="支付方式"
               width="80">
+              <template slot-scope="{row}">
+                <dict :dkey="row.payType" code="PayType">
+                  <template slot-scope="{data}">
+                    {{data.value}}
+                  </template>
+                </dict>
+              </template>
             </el-table-column>
             <el-table-column
               prop="description"
@@ -94,22 +100,27 @@
               width="80">
             </el-table-column>
             <el-table-column
-              prop="status"
               label="订单状态"
               width="80">
+              <template slot-scope="{row}">
+                <dict :dkey="row.status" code="OrderStatus">
+                  <template slot-scope="{data}">
+                   {{data.value}}
+                  </template>
+                </dict>
+              </template>
             </el-table-column>
             <el-table-column
               prop="platformNumber"
               label="物流编号"
               width="180">
             </el-table-column>
-            <!--<el-table-column-->
-              <!--label="操作">-->
-              <!--<template slot-scope="{row}">-->
-                <!--<el-button type="text" @click="$router.push(`/order/detail/${row.id}`)">查看订单</el-button>-->
-                <!--<el-button type="text" @click="close(row.id)">关闭订单</el-button>-->
-              <!--</template>-->
-            <!--</el-table-column>-->
+            <el-table-column
+              label="操作">
+              <template slot-scope="{row}">
+                <el-button v-if="0===row.status" type="text" @click="">修改价格</el-button>
+              </template>
+            </el-table-column>
           </el-table>
         </template>
 

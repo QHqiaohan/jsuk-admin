@@ -8,7 +8,9 @@ import 'element-ui/lib/theme-chalk/index.css';    // 默认主题
 import "babel-polyfill";
 import Axios from './util/http.js'
 import FmGrid from './components/grid/FmGrid';
+import Dict from './components/system/Dict';
 import Shop from '@/util/shop';
+import dict from "./util/dict";
 
 
 var querystring = require('qs');
@@ -30,9 +32,9 @@ Vue.prototype.$session = {
     })
   }
 };
-// Vue.use(ElementUI, {size: 'mini'});
+Vue.prototype.$dict = new dict(Vue.prototype.$axios);
 Vue.component('fm-grid', FmGrid);
-// Vue.prototype.$session = {};
+Vue.component('dict', Dict);
 Vue.prototype.$shop = new Shop(Axios);
 //使用钩子函数对路由进行权限跳转
 router.beforeEach((to, from, next) => {
