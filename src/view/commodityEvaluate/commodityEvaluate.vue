@@ -2,7 +2,7 @@
 
   <div>
     <el-container direction="vertical">
-      <fm-grid url="/wgoods/listEvaluate" ref="grid" method="get"
+      <fm-grid url="/wgoods/listEvaluate" @init-data="initData" ref="grid" method="get"
                :params="['kw','nickName','brandId','categoryId','status']">
         <template slot-scope="{rows,loading,search}">
           <div class="filter-container">
@@ -36,9 +36,17 @@
               width="180">
             </el-table-column>
             <el-table-column
-              prop="starNumber"
               label="评价"
               width="180">
+              <template slot-scope="{row}">
+                <el-rate
+                  v-model="values[row.id]"
+                  disabled
+                  show-score
+                  text-color="#ff9900"
+                  score-template="{value}">
+                </el-rate>
+              </template>
             </el-table-column>
             <el-table-column
               prop="createTime"
@@ -55,7 +63,7 @@
             <el-table-column
               label="操作">
               <template slot-scope="{row}">
-                <el-button type="text" @click="view(row.id)">查看</el-button>
+                <el-button type="text" @click="$refs.ae.view(row.id)">查看</el-button>
                 <el-button type="text" @click="del(row.id)">删除</el-button>
               </template>
             </el-table-column>
@@ -64,6 +72,7 @@
 
       </fm-grid>
       <!--<dict-ae @success="$refs.grid.search()" ref="dictae"/>-->
+      <view-evaluate @success="$refs.grid.search()" ref="ae"/>
     </el-container>
 
   </div>
@@ -72,9 +81,10 @@
 </template>
 
 <script>
+  import viewEvaluate from './viewEvaluate';
 
   export default {
-
+    components: {viewEvaluate},
     mounted() {
       this.$nextTick(() => {
         const {kw} = this.$route.query;
@@ -95,13 +105,6 @@
           });
       },
 
-      view(id) {
-        this.$axios.post('/wgoods/upper', this.$axios.form({goodsId: id}))
-          .then(({data}) => {
-            this.$refs.grid.search();
-            this.loadCount();
-          });
-      },
       del(id) {
         this.$confirm(`确定要删除?`)
           .then(e => {
@@ -139,6 +142,9 @@
         for (const {id, isShow} of rows) {
           this.switches[id] = isShow === 1;
         }
+        for (const {id, starNumber} of rows) {
+          this.values[id] = starNumber;
+        }
       },
       gSearch(status) {
         this.$refs.grid.search({...this.query, status}, 1);
@@ -153,6 +159,7 @@
         brands: [],
         count: {},
         switches: {},
+        values: {},
       }
     }
   }
