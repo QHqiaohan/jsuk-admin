@@ -55,7 +55,7 @@
             </el-table-column>
             <el-table-column
               label="是否显示"
-              width="180">
+              width="100">
               <template slot-scope="{row}">
                 <el-switch v-model="switches[row.id]" @change="useChange(row.id,row)"></el-switch>
               </template>

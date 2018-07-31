@@ -2,7 +2,8 @@
 
   <el-dialog :title="'查看评价'" :visible="visible" @close="visible = false">
     <el-form :model="form" label-width="80px">
-      <el-input type="textarea" v-model="form.desc"></el-input>
+      <img :src="form.image" alt="" style="width: 200px;height: 200px">
+      <el-input type="textarea" v-model="form.content"></el-input>
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button @click="visible = false">取 消</el-button>
