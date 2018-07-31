@@ -10,17 +10,18 @@
   export default {
 
     mounted() {
-      if (this.dkey) {
-        this.load();
-      }
+      this.load().then(()=>{
+        this.update(this.dkey);
+      });
     },
 
     watch: {
 
       dkey(newVal) {
-        if (newVal) {
-          this.load();
-        }
+        // console.log(newVal);
+        this.load().then(() =>{
+          this.update(newVal);
+        });
       }
 
     },
@@ -37,7 +38,12 @@
       },
 
       dkey: {
-        type:[String,Number]
+        type: [String, Number,undefined]
+      },
+
+      keyName: {
+        type: String,
+        default: 'key'
       }
 
     },
@@ -45,19 +51,43 @@
     methods: {
 
       async load() {
-        const data = await this.$dict.load(this.type, this.code);
-        for (const dt of data) {
-          if (this.dkey === dt.key) {
-            this.data = dt;
-            break;
-          }
+        if (!this.datas) {
+          this.datas = await this.$dict.load(this.type, this.code);
         }
+      },
+
+      update(key) {
+        clearTimeout(this.tmr);
+        this.tmr = setTimeout(() => {
+          // debugger
+          // console.log(key);
+          if((!key || key == null || key === 'null')&& key !== 0){
+            // debugger
+            if(this.data){
+              for(const i in this.data){
+                this.data[i] = null;
+              }
+            }else {
+              this.data = {};
+            }
+            return;
+          }
+          for (const i in this.datas) {
+            const dt = this.datas[i];
+            if (key == dt[this.keyName]) {
+              this.data = dt;
+              break;
+            }
+          }
+        }, 50);
       }
 
     },
 
     data() {
       return {
+        datas: null,
+        tmr: null,
         data: {}
       }
     }

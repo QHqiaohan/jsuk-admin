@@ -161,13 +161,10 @@
         }, {
           icon: "el-icon-setting",
           index: "8",
-          title: "商家管理",
+          title: "商户管理",
           subs: [{
             index: "business",
-            title: "商家列表"
-          }, {
-            index: "businessAudit",
-            title: "商家审核"
+            title: "商户列表"
           }]
         }, {
           icon: "el-icon-setting",
