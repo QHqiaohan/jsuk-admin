@@ -244,13 +244,13 @@ export default new Router({
         path: '/distributionPersonnel',
         component: resolve => require(['../view/distributionPersonnel/distributionPersonnel.vue'], resolve),
         meta: {
-          title: '配送人员'
+          title: '用户列表'
         }
       }, {
         path: '/distributionAudit',
         component: resolve => require(['../view/distributionAudit/distributionAudit.vue'], resolve),
         meta: {
-          title: '配送审核'
+          title: '订单详情'
         }
 
       },
