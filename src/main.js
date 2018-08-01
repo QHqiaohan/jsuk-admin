@@ -16,7 +16,7 @@ import dict from "./util/dict";
 var querystring = require('qs');
 Vue.use(ElementUI, {size: 'small'});
 Vue.config.productionTip = false;
-Axios.defaults.baseURL = '/proxy';
+Axios.defaults.baseURL = '/api/v1';
 Vue.prototype.$axios = Axios;
 Vue.prototype.$qs = querystring;
 Vue.prototype.$session = {

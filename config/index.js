@@ -11,13 +11,11 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/proxy':{
-          // target:'http://47.99.45.67:80/api/v1/',
-          target:'http://localhost:8080/api/v1/',
+      '/api/v1':{
+          target:'http://47.99.45.67:80',
+          // target:'http://localhost:8080',
           changeOrigin:true,
-          pathRewrite:{
-              '^/proxy': '/'
-          }
+          pathRewrite:{}
       },
       '/ms':{
           target: 'https://www.easy-mock.com/mock/592501a391470c0ac1fab128',
