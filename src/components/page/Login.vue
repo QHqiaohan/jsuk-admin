@@ -10,12 +10,12 @@
           <el-input type="password" placeholder="password" v-model="ruleForm.password"
                     @keyup.enter.native="submitForm('ruleForm')"></el-input>
         </el-form-item>
-        <el-form-item prop="type">
-          <el-select v-model="ruleForm.type" placeholder="请选择活动区域" class="loginSelect">
-            <el-option label="平台管理员" value="adm"></el-option>
-            <el-option label="商家管理员" value="shp"></el-option>
-          </el-select>
-        </el-form-item>
+        <!--<el-form-item prop="type">-->
+          <!--<el-select v-model="ruleForm.type" placeholder="请选择活动区域" class="loginSelect">-->
+            <!--<el-option label="平台管理员" value="adm"></el-option>-->
+            <!--<el-option label="商家管理员" value="shp"></el-option>-->
+          <!--</el-select>-->
+        <!--</el-form-item>-->
         <div class="login-btn">
           <el-button type="primary" @click="submitForm('ruleForm')">登录</el-button>
         </div>
@@ -35,7 +35,7 @@
         ruleForm: {
           phone: '18780154101',
           password: '123456',
-          type: 'shp'
+          type: ''
         },
         rules: {
           phone: [
