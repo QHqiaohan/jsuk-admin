@@ -63,7 +63,7 @@
           subs: [{
             index: "orderList",
             title: "订单列表",
-            role: 'SHOP'
+            role: ['SHOP','ADMIN']
           }, {
             //   index: "orderDistribution",
             //   title: "同城配送订单"
@@ -142,7 +142,8 @@
             //   title: "优惠卷添加"
             // }, {
             index: "recommendCommodities",
-            title: "首页推荐商品设置"
+            title: "首页推荐商品设置",
+            role:'ADMIN'
           }]
         }, {
           icon: "el-icon-setting",

@@ -79,7 +79,7 @@
               width="180">
             </el-table-column>
             <el-table-column
-              prop="orderPrice"
+              prop="orderRealPrice"
               label="金额"
               width="180">
             </el-table-column>
@@ -118,14 +118,14 @@
             <el-table-column
               label="操作">
               <template slot-scope="{row}">
-                <el-button v-if="0===row.status" type="text" @click="">修改价格</el-button>
+                <el-button v-if="0===row.status" type="text" @click="$refs.edt.edit(row.id)">修改价格</el-button>
               </template>
             </el-table-column>
           </el-table>
         </template>
 
       </fm-grid>
-      <!--<dict-ae @success="$refs.grid.search()" ref="dictae"/>-->
+      <order-edit @success="$refs.grid.search()" ref="edt"/>
     </el-container>
 
   </div>
@@ -135,7 +135,11 @@
 
 <script>
 
+  import OrderEdit from "./OrderEdit";
+
   export default {
+
+    components:{OrderEdit},
 
     mounted() {
       this.$nextTick(() => {
