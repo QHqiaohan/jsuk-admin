@@ -162,6 +162,12 @@ export default new Router({
           title: '时间段列表'
         }
       }, {
+        path: '/integralEdit',
+        component: resolve => require(['../view/integral/IntegralEdit.vue'], resolve),
+        meta: {
+          title: '积分设置'
+        }
+      }, {
         path: '/couponList',
         component: resolve => require(['../view/couponList/couponList.vue'], resolve),
         meta: {

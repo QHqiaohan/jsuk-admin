@@ -120,6 +120,9 @@
             index: "secondKillTime",
             title: "时间段列表"
           }, {
+            index: "integralEdit",
+            title: "积分设置"
+          }, {
           //   index: "couponList",
           //   title: "优惠卷列表"
           // }, {
