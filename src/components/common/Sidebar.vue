@@ -203,6 +203,9 @@
             }, {
               index: "addManagerUser",
               title: "添加成员"
+            },{
+              index: "editManagerUser",
+              title: "编辑成员"
             },
               {
                 index: "menuManager",

@@ -286,6 +286,13 @@ export default new Router({
         }
       },
       {
+        path: '/editManagerUser',
+        component: resolve => require(['../view/editManagerUser/editManagerUser.vue'], resolve),
+        meta: {
+          title: '编辑成员'
+        }
+      },
+      {
         path: '/menuManager',
         component: resolve => require(['../view/menuManager/menuManager.vue'], resolve),
         meta: {
