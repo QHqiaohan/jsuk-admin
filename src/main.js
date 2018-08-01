@@ -30,6 +30,17 @@ Vue.prototype.$session = {
           resolve();
         }).catch(reject);
     })
+  },
+  is(args){
+    if(!Array.isArray(args)){
+      args = [args];
+    }
+    for(const arg of args){
+      if(this.type === arg){
+        return true;
+      }
+    }
+    return false;
   }
 };
 Vue.prototype.$dict = new dict(Vue.prototype.$axios);
