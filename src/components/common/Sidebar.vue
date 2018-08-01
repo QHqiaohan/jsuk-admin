@@ -188,10 +188,10 @@
           title: "配送管理",
           subs: [{
             index: "distributionPersonnel",
-            title: "配送人员"
+            title: "用户列表"
           }, {
             index: "distributionAudit",
-            title: "配送审核"
+            title: "订单详情"
           }]
         }, {
           icon: "el-icon-setting",
