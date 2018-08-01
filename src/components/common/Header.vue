@@ -27,7 +27,7 @@
         <!-- 用户名下拉菜单 -->
         <el-dropdown class="user-name" trigger="click" @command="handleCommand">
                     <span class="el-dropdown-link">
-                        {{$session.nickName}} <i class="el-icon-caret-bottom"></i>
+                        {{$session.nickName}} {{$session.type}}<i class="el-icon-caret-bottom"></i>
                     </span>
           <el-dropdown-menu slot="dropdown">
             <a href="http://blog.gdfengshuo.com/about/" target="_blank">
@@ -65,7 +65,10 @@
       // 用户名下拉菜单选择事件
       handleCommand(command) {
         if (command == 'loginout') {
-          this.$router.push('/login');
+          this.$axios.post('/adm/quit').then(()=>{
+            localStorage.setItem('token',null);
+            this.$router.push('/login');
+          });
         }
       },
       // 侧边栏折叠

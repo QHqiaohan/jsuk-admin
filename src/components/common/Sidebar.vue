@@ -3,17 +3,17 @@
     <el-menu class="sidebar-el-menu" :default-active="onRoutes" :collapse="collapse" background-color="#324157"
              text-color="#bfcbd9" active-text-color="#20a0ff" unique-opened router>
       <template v-for="item in items">
-        <template v-if="item.subs">
+        <template v-if="item.subs && auth(item)">
           <el-submenu :index="item.index" :key="item.index">
             <template slot="title">
               <i :class="item.icon"></i><span slot="title">{{ item.title }}</span>
             </template>
-            <el-menu-item v-for="(subItem,i) in item.subs" :key="i" :index="subItem.index">
+            <el-menu-item v-for="(subItem,i) in item.subs" v-if="auth(subItem)" :key="i" :index="subItem.index">
               {{ subItem.title }}
             </el-menu-item>
           </el-submenu>
         </template>
-        <template v-else>
+        <template v-if="!item.subs && auth(item)">
           <el-menu-item :index="item.index" :key="item.index">
             <i :class="item.icon"></i><span slot="title">{{ item.title }}</span>
           </el-menu-item>
@@ -25,6 +25,7 @@
 
 <script>
   import bus from "../common/bus";
+  import {isInArr, arrIsInArr, arrUnique} from "../../util/arr";
 
   export default {
     data() {
@@ -36,7 +37,8 @@
           title: "系统首页",
           subs: [{
             index: "dashboard",
-            title: "系统首页"
+            title: "系统首页",
+            role: 'ADMIN'
           }, {
             index: "accountSetting",
             title: "个人信息"
@@ -47,10 +49,12 @@
           title: "商品管理",
           subs: [{
             index: "commodityList",
-            title: "商品列表"
+            title: "商品列表",
+            role: 'SHOP'
           }, {
             index: "commodityEvaluate",
-            title: "商品评价"
+            title: "商品评价",
+            role: 'SHOP'
           }]
         }, {
           icon: "el-icon-setting",
@@ -58,50 +62,55 @@
           title: "订单管理",
           subs: [{
             index: "orderList",
-            title: "订单列表"
+            title: "订单列表",
+            role: ['SHOP','ADMIN']
           }, {
-          //   index: "orderDistribution",
-          //   title: "同城配送订单"
-          // }, {
-          //   index: "confirmReceipt",
-          //   title: "确认收货"
-          // }, {
+            //   index: "orderDistribution",
+            //   title: "同城配送订单"
+            // }, {
+            //   index: "confirmReceipt",
+            //   title: "确认收货"
+            // }, {
             index: "orderSetting",
-            title: "订单设置"
+            title: "订单设置",
+            role: 'ADMIN'
           }, {
             index: "returnGoods",
-            title: "退货申请处理"
+            title: "退货申请处理",
+            role: 'SHOP'
           }, {
             index: "refund",
-            title: "退款申请处理"
-          // }, {
-          //   index: "returnGoodsReason",
-          //   title: "退货原因处理"
-          // }, {
-          //   index: "express",
-          //   title: "快递管理"
-          // }, {
-          //   index: "deliverGoods",
-          //   title: "发货点信息管理"
+            title: "退款申请处理",
+            role: 'SHOP'
+            // }, {
+            //   index: "returnGoodsReason",
+            //   title: "退货原因处理"
+            // }, {
+            //   index: "express",
+            //   title: "快递管理"
+            // }, {
+            //   index: "deliverGoods",
+            //   title: "发货点信息管理"
           }]
-        // }, {
-        //   icon: "el-icon-setting",
-        //   index: "4",
-        //   title: "库存",
-        //   subs: [{
-        //     index: "warehousing",
-        //     title: "商品入库"
-        //   }, {
-        //     index: "delivery",
-        //     title: "商品出库"
-        //   }]
+          // }, {
+          //   icon: "el-icon-setting",
+          //   index: "4",
+          //   title: "库存",
+          //   subs: [{
+          //     index: "warehousing",
+          //     title: "商品入库"
+          //   }, {
+          //     index: "delivery",
+          //     title: "商品出库"
+          //   }]
         }, {
           icon: "el-icon-setting",
           index: "5",
           title: "用户",
           subs: [{
             index: "userList",
-            title: "用户列表"
+            title: "用户列表",
+            role: 'ADMIN'
           }, {
             index: "ruleSetting",
             title: "更多规则设置"
@@ -115,19 +124,26 @@
           title: "促销",
           subs: [{
             index: "secondKillList",
-            title: "秒杀活动列表"
+            title: "秒杀活动列表",
+            role: ['ADMIN', 'SHOP']
           }, {
             index: "secondKillTime",
-            title: "时间段列表"
+            title: "时间段列表",
+            role: 'ADMIN'
           }, {
-          //   index: "couponList",
-          //   title: "优惠卷列表"
-          // }, {
-          //   index: "couponAdd",
-          //   title: "优惠卷添加"
-          // }, {
+            index: "integralEdit",
+            title: "积分设置",
+            role: 'ADMIN'
+          }, {
+            //   index: "couponList",
+            //   title: "优惠卷列表"
+            // }, {
+            //   index: "couponAdd",
+            //   title: "优惠卷添加"
+            // }, {
             index: "recommendCommodities",
-            title: "首页推荐商品设置"
+            title: "首页推荐商品设置",
+            role:'ADMIN'
           }]
         }, {
           icon: "el-icon-setting",
@@ -172,10 +188,10 @@
           title: "配送管理",
           subs: [{
             index: "distributionPersonnel",
-            title: "配送人员"
+            title: "用户列表"
           }, {
             index: "distributionAudit",
-            title: "配送审核"
+            title: "订单详情"
           }]
         }, {
           icon: "el-icon-setting",
@@ -183,13 +199,13 @@
           title: "财务管理",
           subs: [
             {
-            index: "userTiXianRecord",
-            title: "提现记录"
-          },
+              index: "userTiXianRecord",
+              title: "提现记录"
+            },
             {
-            index: "userRechargeRecord",
-            title: "充值记录"
-          }
+              index: "userRechargeRecord",
+              title: "充值记录"
+            }
 
           ]
         },
@@ -199,26 +215,24 @@
             title: "权限管理",
             subs: [{
               index: "managerUserList",
-              title: "成员管理"
+              title: "成员管理",
+              role: 'ADMIN'
             }, {
               index: "addManagerUser",
-              title: "添加成员"
-            },{
-              index: "editManagerUser",
-              title: "编辑成员"
+              title: "添加成员",
+              role: 'ADMIN'
             },
               {
                 index: "menuManager",
-                title: "权限设置"
+                title: "权限设置",
+                role: 'ADMIN'
               }]
-          },
-
-
-          {
-          icon: "el-icon-warning",
-          index: "roleManagement",
-          title: "角色管理"
-        }
+          }, {
+            icon: "el-icon-warning",
+            index: "roleManagement",
+            title: "角色管理",
+            role: 'ADMIN'
+          }
           //                    {
           //                        icon: 'el-icon-tickets',
           //                        index: 'table',
@@ -280,11 +294,49 @@
         return this.$route.path.replace("/", "");
       }
     },
+
     created() {
       // 通过 Event Bus 进行组件间通信，来折叠侧边栏
+      // console.log(JSON.stringify(this.items));
+
+
       bus.$on("collapse", msg => {
         this.collapse = msg;
       });
+    },
+    methods: {
+
+
+
+      auth(item) {
+        // return true;
+        const roles = [];
+        const addRoles = role => {
+          if (!role)
+            return;
+          if (Array.isArray(role)) {
+            for (const v of role) {
+              if (!isInArr(v, roles)) {
+                roles.push(v);
+              }
+            }
+          } else {
+            if (!isInArr(role, roles)) {
+              roles.push(role);
+            }
+          }
+        };
+        if (item.role) {
+          addRoles(item.role);
+        } else if (item.subs) {
+          for (const v of item.subs) {
+            addRoles(v.role);
+          }
+        }
+        if (roles.length === 0)
+          return true;
+        return this.$session.is(roles);
+      }
     }
   };
 </script>

@@ -123,10 +123,8 @@
 </template>
 
 <script>
-  import goodsEdit from './goodsEdit';
 
   export default {
-    components: {goodsEdit},
     mounted() {
       this.$nextTick(() => {
         const {kw} = this.$route.query;
