@@ -77,11 +77,11 @@
           }, {
             index: "returnGoods",
             title: "退货申请处理",
-            role: 'SHOP'
+            role: ['SHOP','ADMIN']
           }, {
             index: "refund",
             title: "退款申请处理",
-            role: 'SHOP'
+            role: ['SHOP','ADMIN']
             // }, {
             //   index: "returnGoodsReason",
             //   title: "退货原因处理"
@@ -134,16 +134,16 @@
             index: "integralEdit",
             title: "积分设置",
             role: 'ADMIN'
-          }, {
+          // }, {
             //   index: "couponList",
             //   title: "优惠卷列表"
             // }, {
             //   index: "couponAdd",
             //   title: "优惠卷添加"
             // }, {
-            index: "recommendCommodities",
-            title: "首页推荐商品设置",
-            role:'ADMIN'
+            // index: "recommendCommodities",
+            // title: "首页推荐商品设置",
+            // role:'ADMIN'
           }]
         }, {
           icon: "el-icon-setting",
