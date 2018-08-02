@@ -148,32 +148,14 @@
         }, {
           icon: "el-icon-setting",
           index: "7",
-          title: "设置",
+          title: "APP管理",
           subs: [{
             index: "special",
-            title: "专题管理"
-          }, {
-            index: "PutForward",
-            title: "提现管理"
-          }, {
-            index: "basicSetup",
-            title: "基本设置"
-          }, {
-            index: "messageTi",
-            title: "消息提醒"
-          }, {
-            index: "freight",
-            title: "运费管理"
-          }, {
-            index: "logisticsCompany",
-            title: "物流公司"
-          }, {
-            index: "paymentSetting",
-            title: "支付设置"
-          }, {
-            index: "region",
-            title: "区域管理"
-          }]
+            title: "APP专题列表"
+          },{
+            index: "banner",
+            title: "APP banner图片设置"
+          },]
         }, {
           icon: "el-icon-setting",
           index: "8",
@@ -228,6 +210,15 @@
                 role: 'ADMIN'
               }]
           }, {
+            icon: "el-icon-setting",
+            index: "12",
+            title: "区域管理",
+            subs: [{
+              index: "region",
+              title: "区域设置"
+            }]
+          },
+          {
             icon: "el-icon-warning",
             index: "roleManagement",
             title: "角色管理",
