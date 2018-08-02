@@ -2,7 +2,7 @@
 
   <div>
     <el-row style="padding-bottom: 20px;">
-      订单列表
+      退款申请列表
     </el-row>
     <el-container direction="vertical">
       <fm-grid url="/userOrderService/pageMoney" ref="grid" method="get" :params="['kw','date','status']">
@@ -59,30 +59,30 @@
             v-loading="loading"
             style="width: 100%;padding-bottom:20px;border-bottom:none;">
             <el-table-column
-              prop="orderNum"
-              label="订单编号"
+              prop="serviceCode"
+              label="服务单号"
               width="180">
             </el-table-column>
             <el-table-column
-              prop="creatTime"
-              label="提交时间"
+              prop="createTime"
+              label="申请时间"
               width="180">
             </el-table-column>
             <el-table-column
-              prop="userId"
+              prop="userName"
               label="用户"
               width="180">
             </el-table-column>
             <el-table-column
-              prop="orderPrice"
-              label="金额"
+              prop="price"
+              label="退款金额"
               width="180">
             </el-table-column>
             <el-table-column
-              label="支付方式"
+              label="申请状态"
               width="80">
               <template slot-scope="{row}">
-                <dict :dkey="row.payType" code="PayType">
+                <dict :dkey="row.status" code="OrderRefundStatus">
                   <template slot-scope="{data}">
                     {{data.value}}
                   </template>
@@ -90,37 +90,21 @@
               </template>
             </el-table-column>
             <el-table-column
-              prop="description"
-              label="订单来源"
-              width="80">
-            </el-table-column>
-            <el-table-column
-              label="订单状态"
-              width="80">
-              <template slot-scope="{row}">
-                <dict :dkey="row.status" code="OrderStatus">
-                  <template slot-scope="{data}">
-                    {{data.value}}
-                  </template>
-                </dict>
-              </template>
-            </el-table-column>
-            <el-table-column
-              prop="platformNumber"
-              label="物流编号"
+              prop="completeTime"
+              label="处理时间"
               width="180">
             </el-table-column>
             <el-table-column
               label="操作">
               <template slot-scope="{row}">
-                <el-button v-if="0===row.status" type="text" @click="">修改价格</el-button>
+                <el-button  type="text" @click="$refs.dtl.edit(row.id)">查看详情</el-button>
               </template>
             </el-table-column>
           </el-table>
         </template>
 
       </fm-grid>
-      <!--<dict-ae @success="$refs.grid.search()" ref="dictae"/>-->
+      <return-goods-detail @success="$refs.grid.search() && loadCount()" ref="dtl"/>
     </el-container>
 
   </div>
@@ -130,7 +114,11 @@
 
 <script>
 
+  import ReturnGoodsDetail from "./ReturnGoodsDetail";
+
   export default {
+
+    components:{ReturnGoodsDetail},
 
     mounted() {
       this.$nextTick(() => {
@@ -143,7 +131,7 @@
     methods: {
 
       loadCount(){
-        this.$axios.get('/userOrder/count')
+        this.$axios.get('/userOrderService/pageCount')
           .then(({data: {data}}) => {
             this.count = data;
           });

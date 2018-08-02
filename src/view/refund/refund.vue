@@ -2,7 +2,7 @@
 
   <div>
     <el-row style="padding-bottom: 20px;">
-      订单列表
+      退款申请列表
     </el-row>
     <el-container direction="vertical">
       <fm-grid url="/userOrderService/page" ref="grid" method="get" :params="['kw','date','status']">
@@ -97,15 +97,14 @@
             <el-table-column
               label="操作">
               <template slot-scope="{row}">
-                <el-button v-if="0===row.status" type="text" @click="">处理</el-button>
-                <el-button v-if="0===row.status" type="text" @click="">拒绝</el-button>
+                <el-button  type="text" @click="$refs.dtl.edit(row.id)">查看详情</el-button>
               </template>
             </el-table-column>
           </el-table>
         </template>
 
       </fm-grid>
-      <!--<dict-ae @success="$refs.grid.search()" ref="dictae"/>-->
+      <refund-detail @success="$refs.grid.search()" ref="dtl"/>
     </el-container>
 
   </div>
@@ -115,7 +114,11 @@
 
 <script>
 
+  import RefundDetail from "./RefundDetail";
+
   export default {
+
+    components:{RefundDetail},
 
     mounted() {
       this.$nextTick(() => {
