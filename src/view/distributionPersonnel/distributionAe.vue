@@ -4,7 +4,7 @@
   <el-dialog :title="'用户编辑' " :visible="visible" @close="visible = false">
     <el-form :model="form" label-width="80px">
       <el-form-item label="手机号码">
-        <el-input v-model="form.phone"/>
+        <el-input v-model="form.phone" disabled/>
       </el-form-item>
       <el-form-item label="性别">
         <el-radio v-model="form.gender" label="1">男</el-radio>
@@ -84,7 +84,8 @@
         this.$axios.get(`/distribution/get`, {params: {id}})
           .then(({data: {data}}) => {
             data.canUse = data.canUse === 1;
-            data.gender = parseInt(data.gender);
+            this.$set(data,'gender',data.gender)
+            // data.gender = parseInt(data.gender);
             this.form = data;
           });
       }

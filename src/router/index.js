@@ -195,7 +195,7 @@ export default new Router({
         path: '/banner',
         component: resolve => require(['../view/banner/banner.vue'], resolve),
         meta: {
-          title: 'banner图片设置'
+          title: '图片设置'
         }
       },{
         path: '/region',
