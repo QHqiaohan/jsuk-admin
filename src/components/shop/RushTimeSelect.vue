@@ -10,15 +10,17 @@
     <el-option
       v-for="item in items"
       :key="item.id"
-      :label="item.name"
+      :label="parseLabel(item)"
       :value="item.id">
-      <span>{{item.name}}&nbsp;({{item.startTime|time}} - {{item.endTime|time}})</span>
+      <span>{{item.startTime|time}} - {{item.endTime|time}}</span>
     </el-option>
   </el-select>
 
 </template>
 
 <script>
+
+  import _ from "lodash";
 
   export default {
 
@@ -28,20 +30,12 @@
 
       this.$nextTick(this.load);
 
-
     },
 
     watch:{
 
       value(newVal){
-        console.log(newVal);
-        clearTimeout(this.timeOut);
-        this.timeOut = setTimeout(()=>{
-          if(!self){
-            this.id = newVal;
-            console.log(newVal);
-          }
-        },50);
+        this.updateVal(newVal);
       }
 
     },
@@ -50,29 +44,28 @@
       return {
         items:[],
         id:null,
-        timeOut:null,
-        self:false
+
+        updateVal:_.debounce((va)=>{
+          this.id = va;
+        },50),
+
+        load:_.debounce(()=>{
+          this.$axios.get('/shopRushBuy/list')
+            .then(({data:{data}})=>{
+              this.items = data;
+            })
+        },50)
+
       }
     },
 
     methods:{
 
-      load(){
-        this.$axios.get('/shopRushBuy/list')
-          .then(({data:{data}})=>{
-            console.log(data);
-            this.items = data;
-          })
-
-      },
-
-      prevent(){
-        this.self = true;
-        setTimeout(()=>this.self = false,200);
+      parseLabel(item){
+        return this.$pub.time(item.startTime) + '-' + this.$pub.time(item.endTime);
       },
 
       change(val){
-        this.prevent();
         this.$emit('input',val);
       }
 

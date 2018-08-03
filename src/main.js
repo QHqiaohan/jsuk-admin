@@ -70,14 +70,18 @@ Vue.filter("toF", (value, dt) => { //默认2位小数点;
   return v.toFixed(n)
 });
 
-/**
- * vue 通用选择器
- * **/
-Vue.filter("time", (value, dt) => { //默认2位小数点;
+
+
+const time = (value, dt) => { //默认2位小数点;
   let v = value||'', n = dt || 8;
   const len = v.length;
   return v.substring(len - n, len);
-});
+};
+
+/**
+ * vue 通用选择器
+ * **/
+Vue.filter("time", time);
 
 /*常用校验正则*/
 const Regex = {
@@ -126,7 +130,7 @@ const toQuery = function (pms) {
 };
 
 
-Vue.prototype.$pub = {Regex, toParams, toQuery};
+Vue.prototype.$pub = {Regex, toParams, toQuery,time};
 
 
 const vue = new Vue({
