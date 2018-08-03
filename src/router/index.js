@@ -197,49 +197,19 @@ export default new Router({
         path: '/special',
         component: resolve => require(['../view/special/special.vue'], resolve),
         meta: {
-          title: '专题管理'
+          title: 'APP 专题列表'
         }
-      }, {
-        path: '/PutForward',
-        component: resolve => require(['../view/PutForward/PutForward.vue'], resolve),
+      },  {
+        path: '/banner',
+        component: resolve => require(['../view/banner/banner.vue'], resolve),
         meta: {
-          title: '提现管理'
+          title: '图片设置'
         }
-      }, {
-        path: '/basicSetup',
-        component: resolve => require(['../view/basicSetup/basicSetup.vue'], resolve),
-        meta: {
-          title: '基本设置'
-        }
-      }, {
-        path: '/messageTi',
-        component: resolve => require(['../view/messageTi/messageTi.vue'], resolve),
-        meta: {
-          title: '消息提醒'
-        }
-      }, {
-        path: '/freight',
-        component: resolve => require(['../view/freight/freight.vue'], resolve),
-        meta: {
-          title: '运费管理'
-        }
-      }, {
-        path: '/logisticsCompany',
-        component: resolve => require(['../view/logisticsCompany/logisticsCompany.vue'], resolve),
-        meta: {
-          title: '物流公司'
-        }
-      }, {
-        path: '/paymentSetting',
-        component: resolve => require(['../view/paymentSetting/paymentSetting.vue'], resolve),
-        meta: {
-          title: '支付设置'
-        }
-      }, {
+      },{
         path: '/region',
         component: resolve => require(['../view/region/region.vue'], resolve),
         meta: {
-          title: '区域管理'
+          title: '区域设置'
         }
       }, {
         path: '/roleManagement',

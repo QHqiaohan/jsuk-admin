@@ -3,9 +3,6 @@
 
   <el-dialog :title="'秒杀时间段' + (type == 'add'?'添加':'编辑' )" :visible="visible" @close="visible = false">
     <el-form :model="form" label-width="80px">
-      <el-form-item label="名称">
-        <el-input v-model="form.name"/>
-      </el-form-item>
       <el-form-item label="起止时间">
         <el-time-picker
           v-model="form.startTime"

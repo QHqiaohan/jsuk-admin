@@ -66,9 +66,10 @@
             <el-table-column
               label="专题栏"
               width="180">
-              <!--<template slot-scope="scope">
-                <span v-for="modularPortal:scope.row.modularPortals">modularPortal.name</span>
-              </template>-->
+              <template slot-scope="scope">
+                <span v-for="item in scope.row.modularPortals"> {{item.name}} <b
+                  v-show="scope.row.modularPortals.length>1">-</b></span>
+              </template>
             </el-table-column>
             <el-table-column
               label="状态"
@@ -110,13 +111,14 @@
 <script>
   import FileSaver from 'file-saver'
   import XLSX from 'xlsx'
+
   export default {
     mounted() {
       this.$nextTick(() => {
         const {userName} = this.$route.query;
         const {name} = this.$route.query;
         const {sectionTime} = this.$route.query;
-        this.query = {...this.query, userName, name,sectionTime};
+        this.query = {...this.query, userName, name, sectionTime};
         this.$shop.getCategories().then(categories => this.categories = categories);
         this.$shop.getBrands().then(brands => this.brands = brands);
         this.loadCount();
@@ -133,8 +135,8 @@
             this.count = data;
           });
       },
-      review(id,flag) {
-        this.$axios.post('/shopUser/review', this.$axios.form({id,flag:flag}))
+      review(id, flag) {
+        this.$axios.post('/shopUser/review', this.$axios.form({id, flag: flag}))
           .then(({data}) => {
             this.$refs.grid.search();
             this.loadCount();
@@ -160,14 +162,16 @@
             this.loadCount();
           });
       },*/
-      exportShopUsers () {
+      exportShopUsers() {
         /* generate workbook object from table */
         var wb = XLSX.utils.table_to_book(document.querySelector('#out-table'))
         /* get binary string as output */
-        var wbout = XLSX.write(wb, { bookType: 'xlsx', bookSST: true, type: 'array' })
+        var wbout = XLSX.write(wb, {bookType: 'xlsx', bookSST: true, type: 'array'})
         try {
-          FileSaver.saveAs(new Blob([wbout], { type: 'application/octet-stream' }), '商户列表.xlsx')
-        } catch (e) { if (typeof console !== 'undefined') console.log(e, wbout) }
+          FileSaver.saveAs(new Blob([wbout], {type: 'application/octet-stream'}), '商户列表.xlsx')
+        } catch (e) {
+          if (typeof console !== 'undefined') console.log(e, wbout)
+        }
         return wbout
       },
       initData(rows) {

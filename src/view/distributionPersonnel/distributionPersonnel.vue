@@ -6,10 +6,7 @@
      </el-row>-->
     <el-container direction="vertical">
       <fm-grid url="/distribution/list" ref="grid" method="get" :params="['account','name']">
-
-
         <template slot-scope="{rows,loading,search}">
-
           <div class="filter-container">
             <el-row style="padding-bottom: 20px;">
               <span>用户账号:</span>
@@ -53,7 +50,7 @@
             <el-table-column
               prop="orderAmount"
               label="订单数量"
-              width="180">
+              width="80">
             </el-table-column>
             <el-table-column
               prop="status"
@@ -69,7 +66,7 @@
               label="操作">
               <template slot-scope="{row}">
                 <el-button type="text" @click="view(row.id)">查看</el-button>
-                <el-button type="text" @click="edit(row.id)">编辑</el-button>
+                <el-button type="text" @click="$refs.ae.edit(row.id)">编辑</el-button>
                 <el-button type="text" @click="del(row.id)">删除</el-button>
               </template>
             </el-table-column>
@@ -77,7 +74,7 @@
         </template>
 
       </fm-grid>
-      <!--<goodsEdit @success="$refs.grid.search()" ref="dictae"/>-->
+      <distribution-ae @success="$refs.grid.search()" ref="ae"/>
     </el-container>
 
   </div>
@@ -86,27 +83,27 @@
 </template>
 
 <script>
-
+  import DistributionAe from "./distributionAe";
   export default {
+    components: {DistributionAe},
     mounted() {
       this.$nextTick(() => {
         const {name} = this.$route.query;
         const {account} = this.$route.query;
-        this.query = {...this.query, name,account};
+        this.query = {...this.query, name, account};
         this.$shop.getCategories().then(categories => this.categories = categories);
         this.$shop.getBrands().then(brands => this.brands = brands);
-        this.loadCount();
       });
     },
 
     methods: {
 
-    /*  loadCount() {
-        this.$axios.get('/wgoods/allCount')
-          .then(({data: {data}}) => {
-            this.count = data;
-          });
-      },*/
+      /*  loadCount() {
+          this.$axios.get('/wgoods/allCount')
+            .then(({data: {data}}) => {
+              this.count = data;
+            });
+        },*/
 
       /*upper(id) {
         this.$axios.post('/wgoods/upper', this.$axios.form({goodsId: id}))
@@ -116,13 +113,13 @@
           });
       },*/
 
-    /*  lower(id) {
-        this.$axios.post('/wgoods/lower', this.$axios.form({goodsId: id}))
-          .then(({data}) => {
-            this.$refs.grid.search();
-            this.loadCount();
-          });
-      },*/
+      /*  lower(id) {
+          this.$axios.post('/wgoods/lower', this.$axios.form({goodsId: id}))
+            .then(({data}) => {
+              this.$refs.grid.search();
+              this.loadCount();
+            });
+        },*/
 
       del(id) {
         this.$confirm(`确定要删除?`)
@@ -136,8 +133,8 @@
           .catch(e => {
           });
       },
-      review(id,flag) {
-        this.$axios.post('/wgoods/review', this.$axios.form({goodsId: id,flag:flag}))
+      review(id, flag) {
+        this.$axios.post('/wgoods/review', this.$axios.form({goodsId: id, flag: flag}))
           .then(({data}) => {
             this.$refs.grid.search();
             this.loadCount();

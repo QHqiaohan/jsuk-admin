@@ -79,6 +79,11 @@
               prop="price"
               label="价格"
               width="180">
+              <template slot-scope="scope">
+                <p v-for="item in scope.row.shopGoodsSize">
+                  <span> {{item.sizeName}}:  ￥{{item.salesPrice }}</span>
+                </p>
+              </template>
             </el-table-column>
             <el-table-column
               prop="status"
@@ -114,7 +119,7 @@
         </template>
 
       </fm-grid>
-      <goodsEdit @success="$refs.grid.search()" ref="dictae"/>
+      <!--<goodsEdit @success="$refs.grid.search()" ref="dictae"/>-->
     </el-container>
 
   </div>
@@ -172,8 +177,8 @@
           .catch(e => {
           });
       },
-      review(id,flag) {
-        this.$axios.post('/wgoods/review', this.$axios.form({goodsId: id,flag:flag}))
+      review(id, flag) {
+        this.$axios.post('/wgoods/review', this.$axios.form({goodsId: id, flag: flag}))
           .then(({data}) => {
             this.$refs.grid.search();
             this.loadCount();

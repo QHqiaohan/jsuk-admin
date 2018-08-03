@@ -35,11 +35,6 @@
               width="180">
             </el-table-column>
             <el-table-column
-              prop="good.sizeName"
-              label="规格"
-              width="180">
-            </el-table-column>
-            <el-table-column
               label="每日开始时间"
               width="180">
               <template slot-scope="{row}">
@@ -121,14 +116,13 @@
         const name = ((good && good.name) + (good && good.sizeName)) || '';
         if (this.switches[id] == false) {
           this.$confirm(`确定要禁用${name}?`).then(e => {
-            this.$axios.patch('/shopRushBuyActivity', this.$axios.form({id, isUse: 0}))
+            this.$axios.patch('/shopRushBuyActivity', {id, isUse: 0})
               .then(() => {
                 this.$refs.grid.search();
               });
-          }).catch(e => {
-          })
+          });
         } else {
-          this.$axios.patch('/shopRushBuyActivity', this.$axios.form({id, isUse: 1}))
+          this.$axios.patch('/shopRushBuyActivity', {id, isUse: 1})
             .then(() => {
               this.$refs.grid.search();
             });
