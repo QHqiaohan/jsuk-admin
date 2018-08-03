@@ -29,11 +29,6 @@
               width="180">
             </el-table-column>
             <el-table-column
-              prop="name"
-              label="名称"
-              width="180">
-            </el-table-column>
-            <el-table-column
               label="每日开始时间"
               width="180">
               <template slot-scope="{row}">

@@ -20,6 +20,8 @@
 
 <script>
 
+  import _ from "lodash";
+
   export default {
 
     props: ['value', 'shopId'],
@@ -31,19 +33,11 @@
     watch: {
 
       value(newVal){
-        clearTimeout(this.vTimeOut);
-        this.vTimeOut = setTimeout(() => {
-          if(!self){
-            this.goodsId = newVal;
-          }
-        }, 50);
+        this.updateVal(newVal);
       },
 
       shopId() {
-        clearTimeout(this.timeOut);
-        this.timeOut = setTimeout(() => {
-          this.load();
-        }, 50);
+        this.load();
       }
 
     },
@@ -52,30 +46,23 @@
       return {
         items: [],
         goodsId: null,
-        timeOut: null,
-        vTimeOut:null,
-        self: false
+
+        updateVal:_.debounce((va)=>{
+          this.goodsId = va;
+        },50),
+
+        load:_.debounce(() =>{
+          this.$axios.get('/shopGoods/list', {params: {shopId: this.shopId}})
+            .then(({data: {data}}) => {
+              this.items = data;
+            })
+        },50),
       }
     },
 
     methods: {
 
-      prevent() {
-        this.self = true;
-        setTimeout(() => self = false, 200);
-      },
-
-      load() {
-
-        this.$axios.get('/shopGoods/list', {params: {shopId: this.shopId}})
-          .then(({data: {data}}) => {
-            this.items = data;
-          })
-
-      },
-
       change(val) {
-        this.prevent();
         this.$emit('input', val);
       }
 
