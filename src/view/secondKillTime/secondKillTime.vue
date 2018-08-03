@@ -26,7 +26,7 @@
             <el-table-column
               prop="id"
               label="编码"
-              width="180">
+              width="80">
             </el-table-column>
             <el-table-column
               label="每日开始时间"

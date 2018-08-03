@@ -5,15 +5,10 @@
     <el-form :model="form" label-width="80px">
       <el-form-item label="起止时间">
         <el-time-picker
-          v-model="form.startTime"
+          is-range
+          v-model="times"
           value-format="yyyy-MM-dd HH:mm:ss"
           placeholder="开始时间">
-        </el-time-picker>
-        <el-time-picker
-          arrow-control
-          value-format="yyyy-MM-dd HH:mm:ss"
-          v-model="form.endTime"
-          placeholder="结束时间">
         </el-time-picker>
       </el-form-item>
       <el-form-item label="启用">
@@ -31,14 +26,10 @@
 <script>
 
   const form = () => {
-    return {
-      items: []
-    }
-  }
+    return {}
+  };
 
   export default {
-
-    // components:{DictItem},
 
     data() {
       return {
@@ -46,8 +37,7 @@
         loading: false,
         visible: false,
         form: form(),
-        value2: new Date(2016, 9, 10, 18, 40),
-        value3: new Date(2016, 9, 10, 18, 40)
+        times: null
       };
 
     },
@@ -57,7 +47,7 @@
       onOk() {
         this.loading = true;
         const exec = (this.type == 'add') ? this.$axios.put : this.$axios.patch;
-        exec('/shopRushBuy', this.$axios.form(this.form))
+        exec('/shopRushBuy', this.$axios.form({...this.form, startTime: this.times[0], endTime: this.times[1]}))
           .then(() => {
             this.$message.success(((this.type == 'add') ? '添加' : '修改') + '成功');
             this.loading = false;
@@ -71,15 +61,17 @@
         this.visible = true;
         this.type = 'add';
         this.form = form();
+        this.times = null;
       },
 
       edit(id) {
         this.visible = true;
         this.type = 'edit';
-        this.$axios.get(`/shopRushBuy/get`,{params:{id}})
-          .then(({data:{data}}) => {
+        this.$axios.get(`/shopRushBuy/get`, {params: {id}})
+          .then(({data: {data}}) => {
             data.isUse = data.isUse == 1;
             this.form = data;
+            this.times = [data.startTime, data.endTime];
           });
       }
 
