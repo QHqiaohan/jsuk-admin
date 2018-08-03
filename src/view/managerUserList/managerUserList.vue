@@ -6,7 +6,7 @@
     </el-row>
 
     <el-container direction="vertical">
-      <fm-grid url="/managerUser/getManagerUserList" ref="grid" method="get" :params="['username']">
+      <fm-grid url="/managerUser/getManagerUserList"  @init-data="initData" ref="grid" method="get" :params="['username']">
 
 
         <template slot-scope="{rows,loading,search}">
@@ -52,24 +52,20 @@
               label="添加时间"
               width="200">
             </el-table-column>
+
             <el-table-column
               label="是否启用"
               width="200">
-
-              <template slot-scope="scope">
+              <template slot-scope="{row}">
                 <el-switch
                   active-text ="是"
                   inactive-text = "否"
-                  active-value=1
-                  inactie-value=0
                   active-color="#5B7BFA"
                   inactive-color="#dadde5"
-                  v-model="scope.row.canUse"
-                  @change=setCanUse(scope.row.id,scope.row.canUse)
-                >
+                  v-model="switches[row.canUse]"
+                  @change="setCanUse(row.id,row.canUse)" >
                 </el-switch>
               </template>
-
             </el-table-column>
 
             <el-table-column
@@ -111,6 +107,11 @@
     },*/
 
     methods: {
+      initData(rows) {
+        for (const {id, canUse} of rows) {
+          this.switches[id] = canUse == 1;
+        }
+      },
 
       del(id) {
         this.$axios.post('/managerUser/deleteManagerUserById', this.$axios.form({managerUserId: id}))
@@ -150,6 +151,7 @@
         query: {},
         categories: [],
         brands: [],
+        switches: {},
         count: {},
       }
     }

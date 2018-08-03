@@ -63,7 +63,7 @@
 
         //alert(this.$route.query.managerUserId);
         this.$axios.post('/managerUser/selectManagerUserById', this.$axios.form({managerUserId: this.$route.query.managerUserId}))
-          .then(({data}) => {
+          .then(({data:{data}}) => {
              this.managerUser=data;
            });
 

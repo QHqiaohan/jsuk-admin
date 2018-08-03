@@ -22,6 +22,10 @@
             <el-input  v-model="managerUser.userName" ></el-input>
           </el-form-item>
 
+            <el-form-item label="手机：" prop="phone">
+              <el-input  v-model="managerUser.phone" ></el-input>
+            </el-form-item>
+
           <el-form-item label="密码：" prop="password">
             <el-input type="password" v-model="managerUser.password" auto-complete="off"></el-input>
           </el-form-item>
@@ -51,6 +55,14 @@
   export default {
     data() {
 
+      var validatePass0 = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error('手机号不能为空'));
+        } else {
+          callback();
+        }
+      };
+
       var validatePass = (rule, value, callback) => {
         if (value === '') {
           callback(new Error('请输入密码'));
@@ -72,10 +84,15 @@
       };
       return {
         managerUser: {
+          phone:'',
           password: '',
           checkPass: ''
         },
+
         rules2: {
+          phone: [
+            { validator: validatePass0, trigger: 'blur' }
+          ],
           password: [
             { validator: validatePass, trigger: 'blur' }
           ],
