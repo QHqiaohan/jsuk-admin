@@ -106,17 +106,11 @@
         }, {
           icon: "el-icon-setting",
           index: "5",
-          title: "用户",
+          title: "用户管理",
           subs: [{
             index: "userList",
             title: "用户列表",
             role: 'ADMIN'
-          }, {
-            index: "ruleSetting",
-            title: "更多规则设置"
-          }, {
-            index: "membershipGrade",
-            title: "会员等级"
           }]
         }, {
           icon: "el-icon-setting",

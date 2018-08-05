@@ -6,7 +6,7 @@
     </el-row>
 
     <el-container direction="vertical">
-      <fm-grid url="/managerUser/getManagerUserList" ref="grid" method="get" :params="['username']">
+      <fm-grid url="/managerUser/getManagerUserList"  @init-data="initData" ref="grid" method="get" :params="['username']">
 
 
         <template slot-scope="{rows,loading,search}">
@@ -14,11 +14,16 @@
           <div class="filter-container">
 
             <el-row style="padding-bottom: 20px;">
-
               <span>输入搜索：</span>
               <el-input v-model="query.username" placeholder="用户名/姓名" style="width:200px;"/>
+              <el-button type="primary" @click="search(query,1)">搜索</el-button>
+            </el-row>
 
-              <el-button @click="search(query,1)">搜索</el-button>
+            <el-row style="padding-bottom: 20px;">
+              <span style="font-size:20px">成员列表</span>
+              <span style="padding-left: 1000px;">
+              <router-link to="/addManagerUser"><el-button>添加</el-button></router-link>
+              </span>
             </el-row>
 
           </div>
@@ -47,24 +52,20 @@
               label="添加时间"
               width="200">
             </el-table-column>
+
             <el-table-column
               label="是否启用"
               width="200">
-
-              <template slot-scope="scope">
+              <template slot-scope="{row}">
                 <el-switch
                   active-text ="是"
                   inactive-text = "否"
-                  active-value=1
-                  inactie-value=0
                   active-color="#5B7BFA"
                   inactive-color="#dadde5"
-                  v-model="scope.row.canUse"
-                  @change=setCanUse(scope.row.id,scope.row.canUse)
-                >
+                  v-model="switches[row.canUse]"
+                  @change="setCanUse(row.id,row.canUse)" >
                 </el-switch>
               </template>
-
             </el-table-column>
 
             <el-table-column
@@ -72,7 +73,7 @@
               width="300">
               <template slot-scope="{row}">
                 <el-button type="text" @click="menuSetting(row.id)">权限设置 </el-button>
-                <el-button type="text" @click="edit(row)">编辑</el-button>
+                <el-button type="text" @click="toEditPage(row.id)">编辑</el-button>
                 <el-button type="text" @click="del(row.id)">删除</el-button>
               </template>
             </el-table-column>
@@ -94,7 +95,7 @@
   // import goodsEdit from './goodsEdit';
 
   export default {
-/*    components: {goodsEdit},
+/*   components: {goodsEdit},
     mounted() {
       this.$nextTick(() => {
         const {kw} = this.$route.query;
@@ -106,6 +107,11 @@
     },*/
 
     methods: {
+      initData(rows) {
+        for (const {id, canUse} of rows) {
+          this.switches[id] = canUse == 1;
+        }
+      },
 
       del(id) {
         this.$axios.post('/managerUser/deleteManagerUserById', this.$axios.form({managerUserId: id}))
@@ -115,12 +121,11 @@
           });
       },
 
-      edit(row) {
-        this.$axios.post('/managerUser/editManagerUser', this.$axios.form({managerUser: row}))
-          .then(({data}) => {
-            this.$refs.grid.search();
-            this.loadCount();
-          });
+      toEditPage(id) {
+        /*this.$axios.post('/managerUser/selectManagerUserById', this.$axios.form({managerUserId: id}))
+          .then(({data}) => {*/
+            this.$router.push({path: '/editManagerUser', query: {managerUserId: id}})
+          //});
       },
 
       setCanUse(id,canUse) {
@@ -131,7 +136,7 @@
           });*/
       },
 
-      categoryChange() {
+      toAddPage() {
 
       },
 
@@ -146,6 +151,7 @@
         query: {},
         categories: [],
         brands: [],
+        switches: {},
         count: {},
       }
     }
