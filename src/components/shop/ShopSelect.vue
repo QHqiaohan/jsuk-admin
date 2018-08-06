@@ -3,7 +3,7 @@
 
 <template>
 
-  <el-select v-model="shopId"
+  <el-select :disabled="disabled" v-model="shopId"
              :clearable="true"
              @change="change"
              placeholder="请选择">
@@ -21,7 +21,7 @@
 
   export default {
 
-    props:['value'],
+    props:['value','disabled'],
 
     mounted(){
 

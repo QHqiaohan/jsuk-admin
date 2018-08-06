@@ -231,6 +231,12 @@ export default new Router({
           title: '用户列表'
         }
       }, {
+        path:'/distributionAudit',
+        component:resolve => require(['../view/distributionAudit/distributionAudit.vue'],resolve),
+        meta:{
+          title:'订单详情'
+        }
+      },{
         path: '/orderDetail',
         component: resolve => require(['../view/orderDetail/orderDetail.vue'], resolve),
         meta: {
