@@ -14,12 +14,12 @@
               </p>
             </el-form>
             <div slot="footer" class="dialog-footer" style="margin-top: 10px">
-              <el-button type="primary" :loading="loading" @click="onOk(modularPortal)">保存</el-button>
+              <el-button type="primary"  @click="onOk(modularPortal)">保存</el-button>
             </div>
           </li>
         </ul>
         <div class="after btnBox">
-          <p class="subFile" v-if="item.modularPortals.length<=5">
+          <p class="subFile" v-if="item.modularPortals.length<=7">
             <input type="file" @change="upload(item)">
             上传
           </p>
