@@ -138,12 +138,20 @@ export default new Router({
           title: '用户列表'
         }
       }, {
-        path: '/ruleSetting',
-        component: resolve => require(['../view/ruleSetting/ruleSetting.vue'], resolve),
+        path: '/userDetail',
+        component: resolve => require(['../view/userDetail/userDetail.vue'], resolve),
         meta: {
-          title: '更多规则设置'
+          title: '用户详情'
         }
       }, {
+        path: '/editUser',
+        component: resolve => require(['../view/editUser/editUser.vue'], resolve),
+        meta: {
+          title: '用户编辑'
+        }
+      },
+
+      {
         path: '/membershipGrade',
         component: resolve => require(['../view/membershipGrade/membershipGrade.vue'], resolve),
         meta: {
@@ -223,8 +231,8 @@ export default new Router({
           title: '用户列表'
         }
       }, {
-        path: '/distributionAudit',
-        component: resolve => require(['../view/distributionAudit/distributionAudit.vue'], resolve),
+        path: '/orderDetail',
+        component: resolve => require(['../view/orderDetail/orderDetail.vue'], resolve),
         meta: {
           title: '订单详情'
         }
@@ -259,6 +267,13 @@ export default new Router({
         component: resolve => require(['../view/addManagerUser/addManagerUser.vue'], resolve),
         meta: {
           title: '添加成员'
+        }
+      },
+      {
+        path: '/editManagerUser',
+        component: resolve => require(['../view/editManagerUser/editManagerUser.vue'], resolve),
+        meta: {
+          title: '编辑成员'
         }
       },
       {

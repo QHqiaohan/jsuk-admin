@@ -2,13 +2,17 @@
 
   <div>
     <el-row style="padding-bottom: 20px;">
-      添加成员
+      编辑成员
     </el-row>
 
     <div class="container">
+
+      <el-container direction="vertical">
+
       <div class="form-box">
 
-          <el-form :model="managerUser" status-icon :rules="rules2" ref="managerUser" label-width="100px" class="demo-ruleForm">
+
+        <el-form :model="managerUser" status-icon :rules="rules2" ref="managerUser" label-width="100px" class="demo-ruleForm">
 
           <el-form-item label="成员名称：" prop="nickName">
             <el-input  v-model="managerUser.nickName"></el-input>
@@ -22,10 +26,6 @@
             <el-input  v-model="managerUser.userName" ></el-input>
           </el-form-item>
 
-            <el-form-item label="手机：" prop="phone">
-              <el-input  v-model="managerUser.phone" ></el-input>
-            </el-form-item>
-
           <el-form-item label="密码：" prop="password">
             <el-input type="password" v-model="managerUser.password" auto-complete="off"></el-input>
           </el-form-item>
@@ -37,15 +37,19 @@
             <el-input type="textarea" placeholder="请输入内容" rows="5" v-model="managerUser.desc" ></el-input>
           </el-form-item>
 
-            <el-form-item>
-              <el-button type="primary" @click="addManagerUser('managerUser')">提交</el-button>
-              <el-button type="primary" @click="resetForm('managerUser')">重置</el-button>
-            </el-form-item>
+          <el-form-item>
+            <el-button type="primary" @click="editManagerUser('managerUser')">提交</el-button>
+            <el-button type="primary" @click="resetForm('managerUser')">重置</el-button>
+          </el-form-item>
 
         </el-form>
 
       </div>
+      </el-container>
+
     </div>
+
+
   </div>
 
 
@@ -53,16 +57,20 @@
 
 <script>
   export default {
+
+    mounted() {
+      this.$nextTick(() => {
+
+        //alert(this.$route.query.managerUserId);
+        this.$axios.post('/managerUser/selectManagerUserById', this.$axios.form({managerUserId: this.$route.query.managerUserId}))
+          .then(({data:{data}}) => {
+             this.managerUser=data;
+           });
+
+      });
+    },
+
     data() {
-
-      var validatePass0 = (rule, value, callback) => {
-        if (value === '') {
-          callback(new Error('手机号不能为空'));
-        } else {
-          callback();
-        }
-      };
-
       var validatePass = (rule, value, callback) => {
         if (value === '') {
           callback(new Error('请输入密码'));
@@ -84,15 +92,10 @@
       };
       return {
         managerUser: {
-          phone:'',
           password: '',
           checkPass: ''
         },
-
         rules2: {
-          phone: [
-            { validator: validatePass0, trigger: 'blur' }
-          ],
           password: [
             { validator: validatePass, trigger: 'blur' }
           ],
@@ -103,10 +106,10 @@
       };
     },
     methods: {
-      addManagerUser(managerUser) {
-        this.$axios.post('/managerUser/addManagerUser', this.$axios.form(this.managerUser))
+      editManagerUser(managerUser) {
+        this.$axios.post('/managerUser/editManagerUser', this.$axios.form(this.managerUser))
           .then(() => {
-            this.$message.success('添加成功！');
+            this.$message.success('编辑成功！');
           })
       },
       resetForm(formName) {
