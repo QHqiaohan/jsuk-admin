@@ -6,7 +6,7 @@
         <rush-time-select v-model="form.rushBuyId"/>
       </el-form-item>
       <el-form-item label="店铺">
-        <shop-select :disabled="disableChangeShop" v-model="form.shopId"/>
+        <shop-select ref="ft"  :disabled="disableChangeShop" v-model="form.shopId"/>
       </el-form-item>
       <el-form-item label="商品">
         <goods-select :shop-id="form.shopId" v-model="form.goodsId"/>
@@ -116,9 +116,7 @@
         this.type = 'edit';
         this.$axios.get(`/shopRushBuyActivity/get`, {params: {id}})
           .then(({data: {data}}) => {
-            const fm = this.checkShop(data);
-            this.form.shopId = fm.shopId;
-            this.form = fm;
+            this.form = this.checkShop(data);;
           });
       },
 
