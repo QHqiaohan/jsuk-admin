@@ -165,9 +165,6 @@
           subs: [{
             index: "distributionPersonnel",
             title: "用户列表"
-          }, {
-            index: "distributionAudit",
-            title: "订单详情"
           }]
         }, {
           icon: "el-icon-setting",

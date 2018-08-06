@@ -1,7 +1,9 @@
 <template>
-  <div>
+
+  <!--"/distribution/orderDetails?id=" +id-->
+  <el-dialog :title="'用户详情' " :visible="visible" @close="visible = false" width="70%">
     <el-container direction="vertical">
-      <fm-grid url="/distribution/orderDetails?id=237" ref="grid" method="get">
+      <fm-grid v-bind="fm" ref="grid" method="get" :params="['id']">
         <template slot-scope="{rows,loading,search}">
           <el-table
             :data="rows"
@@ -44,27 +46,49 @@
 
       </fm-grid>
     </el-container>
-
-  </div>
-
+  </el-dialog>
 
 </template>
 
 <script>
 
+  const form = () => {
+    return {
+      items: []
+    }
+  };
+
   export default {
-    mounted() {
+    // components:{DictItem},
+    data() {
+      return {
+        type: 'add',
+        loading: false,
+        visible: false,
+        fm: {},
+        form: form(),
+      }
     },
 
     methods: {
-      data() {
-        return {}
+      view(id) {
+        this.visible = true;
+        this.fm.url = "/distribution/orderDetails?id=" + id;
+        this.fm.current = 1;
+        this.$refs.grid.search();
+      },
+      edit(id) {
+        this.visible = true;
+        this.type = 'edit';
+        this.$axios.get(`/distribution/get`, {params: {id}})
+          .then(({data: {data}}) => {
+            data.canUse = data.canUse === 1;
+            this.$set(data, 'gender', data.gender);
+            // data.gender = parseInt(data.gender);
+            this.form = data;
+          });
       }
     }
   }
-
 </script>
 
-<style>
-
-</style>

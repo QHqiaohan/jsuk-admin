@@ -199,13 +199,13 @@ export default new Router({
         meta: {
           title: 'APP 专题列表'
         }
-      },  {
+      }, {
         path: '/banner',
         component: resolve => require(['../view/banner/banner.vue'], resolve),
         meta: {
           title: '图片设置'
         }
-      },{
+      }, {
         path: '/region',
         component: resolve => require(['../view/region/region.vue'], resolve),
         meta: {
@@ -224,19 +224,13 @@ export default new Router({
         meta: {
           title: '商户列表'
         }
-      },  {
+      }, {
         path: '/distributionPersonnel',
         component: resolve => require(['../view/distributionPersonnel/distributionPersonnel.vue'], resolve),
         meta: {
           title: '用户列表'
         }
       }, {
-        path:'/distributionAudit',
-        component:resolve => require(['../view/distributionAudit/distributionAudit.vue'],resolve),
-        meta:{
-          title:'订单详情'
-        }
-      },{
         path: '/orderDetail',
         component: resolve => require(['../view/orderDetail/orderDetail.vue'], resolve),
         meta: {
