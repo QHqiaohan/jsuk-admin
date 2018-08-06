@@ -13,50 +13,41 @@
 
           <el-form :model="managerUser" status-icon :rules="rules2" ref="managerUser" label-width="100px" class="demo-ruleForm">
 
-            <el-upload
-              action="https://jsonplaceholder.typicode.com/posts/"
-              list-type="picture-card"
-              :on-preview="handlePictureCardPreview"
-              :on-remove="handleRemove">
-              <i class="el-icon-plus"></i>
-            </el-upload>
-            <el-dialog :visible.sync="dialogVisible">
-              <img width="100%" :src="dialogImageUrl" alt="">
-            </el-dialog>
+            <!--上传头像-->
+            <div class="bannerCont" style="margin-left:200px;">
 
+                  <img :src="managerUser.headImg" class="img-my" style="width:100px;height:100px;"/>
+              <div class="after btnBox">
+                <p class="subFile">
+                  <input type="file" name="file" @change="upload()">
+                </p><br>
+                <!--<el-button type="primary" >上传头像</el-button>-->
+              </div>
+            </div>
+<br>
             <el-form-item label="昵称：" prop="nickName">
               <el-input  v-model="managerUser.nickName"></el-input>
             </el-form-item>
-
             <el-form-item label="用户名：" prop="userName">
               <el-input  v-model="managerUser.userName" ></el-input>
             </el-form-item>
-
             <el-form-item label="旧密码：" prop="password">
               <el-input type="password" v-model="managerUser.password" auto-complete="off"></el-input>
             </el-form-item>
             <el-form-item label="新密码：" prop="newPassword">
               <el-input type="password" v-model="managerUser.newPassword" auto-complete="off"></el-input>
             </el-form-item>
-
             <el-form-item label="确认密码：" prop="checkPass">
               <el-input type="password" v-model="managerUser.checkPass" auto-complete="off"></el-input>
             </el-form-item>
-
-
             <el-form-item>
               <el-button type="primary" @click="accountInfoSetting('managerUser','managerUser.newPassword')">提交</el-button>
               <el-button type="primary" @click="resetForm('managerUser')">重置</el-button>
             </el-form-item>
-
           </el-form>
-
         </div>
       </el-container>
-
     </div>
-
-
   </div>
 
 
@@ -64,17 +55,15 @@
 
 <script>
   export default {
-
     mounted() {
       this.$nextTick(() => {
         this.$axios.post('/managerUser/getAdmin')
           .then(({data:{data}}) => {
             this.managerUser=data;
+           // this.headPicture=this.managerUser.headImg;
           });
-
       });
     },
-
 
     data() {
       var validatePass = (rule, value, callback) => {
@@ -100,8 +89,7 @@
         managerUser: {
           newPassword: '',
           checkPass: '',
-          dialogImageUrl: '',
-          dialogVisible: false
+          headPicture:''
         },
         rules2: {
           newPassword: [
@@ -110,10 +98,36 @@
           checkPass: [
             { validator: validatePass2, trigger: 'blur' }
           ]
-        }
+        },
+
+        headPicture:''
       };
     },
     methods: {
+
+      //上传图片到服务器
+      upload(e) {
+        // let evt = window.event || arguments.callee.caller.arguments[0]; // 获取event对象
+        // console.log(evt)
+        let file = e.target.files[0];
+        console.log(file)
+        let param = new FormData(); //创建form对象
+        param.append('file', file, file.name);//通过append向form对象添加数据
+        this.$axios.post('/upload/imgToOSS', param)
+          .then(res => {
+            if (res.data.code === 200) {
+              console.log(res.data.data)
+              this.managerUser.headImg=res.data.data
+             // this.managerUser.headImg=res.data.data
+             /* let banner = {
+                image: res.data.data,
+                bannerLocation: data.bannerLocation
+              }*/
+             // this.imgAddFun(banner);
+            }
+          });
+      },
+
       accountInfoSetting(managerUser,newPassword) {
         this.$axios.post('/managerUser/accountInfoSetting', this.$axios.form(this.managerUser,newPassword))
           .then(() => {
@@ -124,15 +138,6 @@
         this.$refs[formName].resetFields();
       },
 
-      //头像上传开始
-      handleRemove(file, fileList) {
-        console.log(file, fileList);
-      },
-      handlePictureCardPreview(file) {
-        this.dialogImageUrl = file.url;
-        this.dialogVisible = true;
-      }
-      //头像上传结束
 
     }
   }
@@ -140,28 +145,6 @@
 
 <style>
 
-  .avatar-uploader .el-upload {
-    border: 1px dashed #d9d9d9;
-    border-radius: 6px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-  }
-  .avatar-uploader .el-upload:hover {
-    border-color: #409EFF;
-  }
-  .avatar-uploader-icon {
-    font-size: 28px;
-    color: #8c939d;
-    width: 178px;
-    height: 178px;
-    line-height: 178px;
-    text-align: center;
-  }
-  .avatar {
-    width: 178px;
-    height: 178px;
-    display: block;
-  }
+
 
 </style>
