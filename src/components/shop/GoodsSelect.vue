@@ -56,7 +56,7 @@
             .then(({data: {data}}) => {
               this.items = data;
             })
-        },50),
+        },500),
       }
     },
 

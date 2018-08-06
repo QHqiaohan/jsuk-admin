@@ -6,7 +6,7 @@
         <rush-time-select v-model="form.rushBuyId"/>
       </el-form-item>
       <el-form-item label="店铺">
-        <shop-select v-model="form.shopId"/>
+        <shop-select ref="ft"  :disabled="disableChangeShop" v-model="form.shopId"/>
       </el-form-item>
       <el-form-item label="商品">
         <goods-select :shop-id="form.shopId" v-model="form.goodsId"/>
@@ -63,9 +63,18 @@
 
     components: {ShopSelect, GoodsSelect, GoodsSizesSelect, RushTimeSelect},
 
+    mounted(){
+      this.$nextTick(()=>{
+        if(this.$session.is('SHOP')){
+            this.disableChangeShop = true;
+        }
+      });
+    },
+
     data() {
       return {
         type: 'add',
+        disableChangeShop:false,
         loading: false,
         visible: false,
         form: form(),
@@ -89,10 +98,17 @@
           .catch(e => this.loading = false);
       },
 
+      checkShop(fm){
+        if(this.$session.is('SHOP')){
+          fm.shopId = this.$session.shopId;
+        }
+        return fm;
+      },
+
       add() {
         this.visible = true;
         this.type = 'add';
-        this.form = form();
+        this.form = this.checkShop(form());
       },
 
       edit(id) {
@@ -100,7 +116,7 @@
         this.type = 'edit';
         this.$axios.get(`/shopRushBuyActivity/get`, {params: {id}})
           .then(({data: {data}}) => {
-            this.form = data;
+            this.form = this.checkShop(data);;
           });
       },
 

@@ -115,7 +115,7 @@
         }, {
           icon: "el-icon-setting",
           index: "6",
-          title: "促销",
+          title: "APP促销管理",
           subs: [{
             index: "secondKillList",
             title: "秒杀活动列表",
@@ -138,7 +138,18 @@
             // index: "recommendCommodities",
             // title: "首页推荐商品设置",
             // role:'ADMIN'
-          }]
+          },
+            {
+              index: "secondaryMarket",
+              title: "二手市场",
+              role: 'ADMIN'
+            },
+            {
+              index: "villageActivity",
+              title: "乡村旅游",
+              role: 'ADMIN'
+            }
+          ]
         }, {
           icon: "el-icon-setting",
           index: "7",

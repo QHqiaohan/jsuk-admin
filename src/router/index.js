@@ -284,6 +284,20 @@ export default new Router({
         }
       },
 
+      {
+        path: '/villageActivity',
+        component: resolve => require(['../view/villageActivity/villageActivity.vue'], resolve),
+        meta: {
+          title: '乡村旅游'
+        }
+      },
+      {
+        path: '/secondaryMarket',
+        component: resolve => require(['../view/secondaryMarket/secondaryMarket.vue'], resolve),
+        meta: {
+          title: '二手市场'
+        }
+      },
 
       {
         path: '/dashboard',
