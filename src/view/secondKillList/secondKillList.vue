@@ -15,7 +15,7 @@
 
             <el-row style="padding-bottom: 20px;">
               <el-button type="text" @click="$refs.ae.add()">添加</el-button>
-              <el-button type="text" @click="$router.push('/secondKillTime')">秒杀时间段列表</el-button>
+              <el-button type="text" v-if="$session.is('ADMIN')" @click="$router.push('/secondKillTime')">秒杀时间段列表</el-button>
             </el-row>
 
           </div>

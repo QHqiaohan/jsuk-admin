@@ -8,26 +8,26 @@
         <el-form ref="form" :model="form" label-width="120px">
           <el-form-item label="秒杀订单超过">
             <el-input style="width: 250px;" v-model="form.rushBuyTimeout"/>
-            未付款，订单自动关闭
+            (分) 未付款，订单自动关闭
           </el-form-item>
           <el-form-item label="正常订单超过">
             <el-input style="width: 250px;" v-model="form.payTimeout"/>
-            未付款，订单自动关闭
+            (分) 未付款，订单自动关闭
           </el-form-item>
           <el-form-item label="发货超过">
             <el-input style="width: 250px;" v-model="form.autoComplete"/>
-            未收货，订单自动完成
+            (天) 未收货，订单自动完成
           </el-form-item>
           <el-form-item label="订单完成超过">
             <el-input style="width: 250px;" v-model="form.confirmReceived"/>
-            自动结束交易，不能申请售后
+            (天) 自动结束交易，不能申请售后
           </el-form-item>
           <el-form-item label="订单完成超过">
             <el-input style="width: 250px;" v-model="form.autoComment"/>
-            自动五星好评
+            (天) 自动五星好评
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" :loading="loading" @click="submit">表单提交</el-button>
+            <el-button type="primary" :loading="loading" @click="submit">保存</el-button>
             <el-button>取消</el-button>
           </el-form-item>
         </el-form>
