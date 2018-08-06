@@ -43,6 +43,17 @@
               </template>
             </el-table-column>
             <el-table-column
+              label="状态"
+              width="180">
+              <template slot-scope="{row}">
+                <dict :dkey="row.status" key-name="VALUE" code="ShopRushBuyStatus">
+                  <template slot-scope="{data}">
+                    {{data.value}}
+                  </template>
+                </dict>
+              </template>
+            </el-table-column>
+            <el-table-column
               label="启用"
               width="180">
               <template slot-scope="{row}">
