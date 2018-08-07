@@ -15,7 +15,8 @@
 
             <el-row style="padding-bottom: 20px;">
               <el-button type="text" @click="$refs.ae.add()">添加</el-button>
-              <el-button type="text" v-if="$session.is('ADMIN')" @click="$router.push('/secondKillTime')">秒杀时间段列表</el-button>
+              <el-button type="text" v-if="$session.is('ADMIN')" @click="$router.push('/secondKillTime')">秒杀时间段列表
+              </el-button>
             </el-row>
 
           </div>
@@ -92,7 +93,7 @@
     methods: {
 
       del(id, {good}) {
-        const name = ((good && good.name) + (good && good.sizeName)) || '';
+        const name = good && good.name || '';
         this.$confirm(`确定要删除${name}?`)
           .then(e => {
             this.$axios.delete('/shopRushBuyActivity', {params: {id}})
@@ -113,13 +114,14 @@
       },
 
       useChange(id, {good}) {
-        const name = ((good && good.name) + (good && good.sizeName)) || '';
+        const name = good && good.name || '';
         if (this.switches[id] == false) {
           this.$confirm(`确定要禁用${name}?`).then(e => {
             this.$axios.patch('/shopRushBuyActivity', {id, isUse: 0})
               .then(() => {
                 this.$refs.grid.search();
               });
+          }).catch(() => {
           });
         } else {
           this.$axios.patch('/shopRushBuyActivity', {id, isUse: 1})

@@ -74,7 +74,7 @@
               width="180">
             </el-table-column>
             <el-table-column
-              prop="userId"
+              prop="userName"
               label="用户"
               width="180">
             </el-table-column>
@@ -94,11 +94,11 @@
                 </dict>
               </template>
             </el-table-column>
-            <el-table-column
-              prop="description"
-              label="订单来源"
-              width="80">
-            </el-table-column>
+            <!--<el-table-column-->
+              <!--prop="description"-->
+              <!--label="订单来源"-->
+              <!--width="80">-->
+            <!--</el-table-column>-->
             <el-table-column
               label="订单状态"
               width="80">
