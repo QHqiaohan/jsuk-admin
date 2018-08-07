@@ -21,8 +21,8 @@
               </el-select>
           </el-form-item>
 
-          <el-form-item label="门店地址：" prop="portalAddress">
-            <el-input  v-model="activity.portalAddress"></el-input>
+          <el-form-item label="门店地址：" prop="address">
+            <el-input  v-model="activity.address"></el-input>
           </el-form-item>
 
           <el-form-item label="联系人：" prop="name">
@@ -41,41 +41,26 @@
             <el-input  v-model="activity.fixedPrice" placeholder="请输入xxx元"></el-input>
           </el-form-item>
 
-
           <el-form-item label="上传门店照片：" >
-
-<!--            <el-upload
-              action="https://jsonplaceholder.typicode.com/posts/"
-              list-type="picture-card"
-              :on-preview="handlePictureCardPreview"
-              :on-remove="handleRemove">
-              <i class="el-icon-plus"></i>
-            </el-upload>
-            <el-dialog :visible.sync="dialogVisible">
-              <img width="100%" :src="dialogImageUrl" alt="">
-            </el-dialog>-->
-            <div class="bannerBox" v-for="item in items">
-              <p class="title ">{{item.location}}</p>
+            <div class="bannerBox" >
               <div class="bannerCont">
                 <ul class="after">
-                  <li v-for="banner in item.banners">
-                    <img :src="banner.image" class="img-my"/>
-                    <p @click="delectBannerFun(banner)">
+                  <li v-for="(picture,index) in images" style="margin:8px;float:left;">
+                    <img :src="picture" class="img-my" style="width:100px;height:100px;"/>
+                    <p  @click="delectBannerFun(index)">
                       X
                     </p>
                   </li>
                 </ul>
                 <div class="after btnBox">
-                  <p class="subFile" v-if="item.banners.length<=3">
-                    <input type="file" @change="upload(item)">
+                  <p class="subFile" v-if="images.length<=3">
+                    <input type="file" @change="upload(picture)">
                     上传
                   </p>
                 </div>
               </div>
             </div>
-
           </el-form-item>
-
 
 
           <el-form-item label="文字介绍：" prop="content">
@@ -83,7 +68,7 @@
           </el-form-item>
 
           <el-form-item>
-            <el-button type="primary" @click="addVillageActivity('activity')">确定</el-button>
+            <el-button type="primary" @click="addVillageActivity('activity','images')">确定</el-button>
           </el-form-item>
 
         </el-form>
@@ -99,11 +84,11 @@
   export default {
 
     mounted() {
+      let images=new Array();
       this.$nextTick(() => {
-
         //查询乡村旅游子模块
         this.$axios.post('/activity/selectVillageChildModular')
-          .then(({data:[data]}) => {
+          .then(({data:{data}}) => {
             this.modularPortalList=data;
           });
 
@@ -112,49 +97,58 @@
 
     data() {
 
-
       return {
+        modularPortalList:[],
         activity:{},
-        dialogImageUrl: '',
-        dialogVisible: false
+        images:[],
+        image:'',
+        picture:'',
+        activityImg:'',
+        index:''
       };
 
     },
+
     methods: {
-      addVillageActivity(activity) {
+      addVillageActivity(activity,images) {
+        let activityImg='';
+        for(let i=0;i<this.images.length;i++){
+          if(i==this.images.length-1){
+            this.activityImg+=this.images[i];
+          }else{
+            this.activityImg+=this.images[i]+',';
+          }
+        }
+        this.activity.images=this.activityImg;
         this.$axios.post('/activity/addVillageActivity', this.$axios.form(this.activity))
           .then(() => {
             this.$message.success('发布成功！');
           })
       },
 
-      handleRemove(file, fileList) {
-        console.log(file, fileList);
-      },
-      handlePictureCardPreview(file) {
-        this.dialogImageUrl = file.url;
-        this.dialogVisible = true;
-      },
 
+      //上传图片到服务器
       upload(data) {
+        // let evt = window.event || arguments.callee.caller.arguments[0]; // 获取event对象
+        // console.log(evt)
         console.log(data)
         let file = event.target.files[0];
         console.log(file)
         let param = new FormData(); //创建form对象
         param.append('file', file, file.name);//通过append向form对象添加数据
-//            param.append('chunk','0');//添加form表单中其他数据
         this.$axios.post('/upload/imgToOSS', param)
           .then(res => {
             if (res.data.code === 200) {
-              let banner = {
-                image: res.data.data,
-                bannerLocation: data.bannerLocation
-              }
-              this.imgAddFun(banner);
+              console.log(res.data.data)
+              let image=res.data.data
+              this.images.push(image);
             }
           });
       },
 
+      delectBannerFun(index) {
+        this.images.splice(index,1);
+      }
 
     }
   }

@@ -15,13 +15,11 @@
 
             <!--上传头像-->
             <div class="bannerCont" style="margin-left:200px;">
-
                   <img :src="managerUser.headImg" class="img-my" style="width:100px;height:100px;"/>
               <div class="after btnBox">
                 <p class="subFile">
                   <input type="file" name="file" @change="upload()">
                 </p><br>
-                <!--<el-button type="primary" >上传头像</el-button>-->
               </div>
             </div>
 <br>
@@ -32,7 +30,7 @@
               <el-input  v-model="managerUser.userName" ></el-input>
             </el-form-item>
             <el-form-item label="旧密码：" prop="password">
-              <el-input type="password" v-model="managerUser.password" auto-complete="off"></el-input>
+              <el-input type="password"  auto-complete="off"></el-input>
             </el-form-item>
             <el-form-item label="新密码：" prop="newPassword">
               <el-input type="password" v-model="managerUser.newPassword" auto-complete="off"></el-input>
@@ -106,10 +104,10 @@
     methods: {
 
       //上传图片到服务器
-      upload(e) {
+      upload() {
         // let evt = window.event || arguments.callee.caller.arguments[0]; // 获取event对象
         // console.log(evt)
-        let file = e.target.files[0];
+        let file = event.target.files[0];
         console.log(file)
         let param = new FormData(); //创建form对象
         param.append('file', file, file.name);//通过append向form对象添加数据

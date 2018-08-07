@@ -8,30 +8,29 @@
 
     <div class="container">
       <el-container direction="vertical">
-
         <div class="form-box">
 
         <el-form :model="user"  ref="user" label-width="100px" class="demo-ruleForm">
 
           <el-form-item label="用户id" prop="id">
-            <el-input type="text" v-model="user.id" disabled="true"></el-input>
+            <el-input type="text" v-model="user.id" disabled=true></el-input>
           </el-form-item>
 
           <el-form-item label="昵称" prop="nickName">
-            <el-input type="text" v-model="user.nickName" disabled="true"></el-input>
+            <el-input type="text" v-model="user.nickName" disabled=true></el-input>
           </el-form-item>
 
           <el-form-item label="性别" >
-            <span v-if="user.sex==0"><el-input value="女" disabled="true"></el-input></span>
-            <span v-if="user.sex==1"><el-input value="男" disabled="true"></el-input></span>
+            <span v-if="user.sex==0"><el-input value="女" disabled=true></el-input></span>
+            <span v-if="user.sex==1"><el-input value="男" disabled=true></el-input></span>
           </el-form-item>
 
           <el-form-item label="生日" prop="birthday">
-            <el-input type="text" v-model="user.birthday" disabled="true"></el-input>
+            <el-input type="text" v-model="user.birthday" disabled=true></el-input>
           </el-form-item>
 
           <el-form-item label="城市" prop="address">
-            <el-input type="text" v-model="user.address" disabled="true"></el-input>
+            <el-input type="text" v-model="user.address" disabled=true></el-input>
           </el-form-item>
 
         </el-form>
@@ -39,8 +38,6 @@
 
       </el-container>
     </div>
-
-
 
     <div class="container" style="margin-top: 40px">
       <el-container direction="vertical">
@@ -69,8 +66,7 @@
             </el-table-column>
             <el-table-column
               label="默认地址">
-
-              <template slot-scope="{row}">
+<!--              <template slot-scope="{row}">
                 <el-switch
                   v-model="row.isDefault"
                   active-value=1
@@ -80,6 +76,9 @@
                   @change="defaultChange(row.id,row.isDefault)"
                 >
                 </el-switch>
+              </template>-->
+              <template slot-scope="{row}">
+                <el-switch v-model="switches[row.id]" @change="defaultChange(row.id,row)"></el-switch>
               </template>
 
             </el-table-column>
@@ -162,14 +161,13 @@
 
     mounted() {
       this.$nextTick(() => {
-        alert("id:"+this.$route.query.detailUserId);
-        this.$axios.post('/user/getUserInfo', this.$axios.form({detailUserId: this.$route.query.userId}))
+        /*this.$axios.post('/user/getUserInfo', this.$axios.form({detailUserId: this.$route.query.detailUserId}))
           .then(({data:{data}}) => {
             this.user=data.user;
             this.userOrderList=data.userOrderList;
             this.userAddressList=data.userAddressList;
-          });
-
+          });*/
+        this.initMethod();
       });
     },
 
@@ -184,21 +182,45 @@
     },
 
     methods: {
-      defaultChange(id,isDefault) {
-        /*//const name = ((goodsEvaluate && goodsEvaluate.userInfo.nickName)) || '';
-        if (this.switches[id] === false) {
+
+      initMethod(){
+        this.$axios.post('/user/getUserInfo', this.$axios.form({detailUserId: this.$route.query.detailUserId}))
+          .then(({data:{data}}) => {
+            this.user=data.user;
+            this.userOrderList=data.userOrderList;
+            this.userAddressList=data.userAddressList;
+          });
+
+        this.initDefault(this.userAddressList);
+      },
+
+      defaultChange(id,row) {
+       //this.$axios.post('/userAddress/setDefaultAddress', this.$axios.form({id:id, isDefault:isDefault}));
+
+        if (this.switches[id] == false) {
           this.$confirm(`是否取消默认?`).then(e => {
-            this.$axios.post('/userAddress/setDefaultAddress', this.$axios.form({id, isDefault: 0}))
-          }).catch(e => {
-          })
+            this.$axios.post('/userAddress/setDefaultAddress', this.$axios.form({id:id, isDefault:0}))
+              .then(() => {
+                this.initMethod();
+              });
+          });
         } else {
-          this.$axios.post('/userAddress/setDefaultAddress', this.$axios.form({id, isDefault: 1}))
-        }*/
-       this.$axios.post('/userAddress/setDefaultAddress', this.$axios.form({id:id, isDefault:isDefault}))
+          this.$axios.post('/userAddress/setDefaultAddress', this.$axios.form({id:id, isDefault:1}))
+            .then(() => {
+              this.initMethod();
+            });
+        }
+      },
+
+      initDefault(rows) {
+        for (const {id, isDefault} of rows) {
+          alert("id:"+id+",isDefault:"+isDefault);
+          this.switches[id] = isDefault == 1;
+        }
       },
 
       toOrderDetailPage(id) {
-        this.$router.push({path: '/orderDetail', query: {userOrderId: id}})
+        this.$router.push({path: '/orderDetail', query: {orderId: id}})
       }
 
     }
