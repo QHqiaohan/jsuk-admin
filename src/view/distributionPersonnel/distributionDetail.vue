@@ -1,7 +1,9 @@
 <template>
-  <div>
+
+  <!--"/distribution/orderDetails?id=" +id-->
+  <el-dialog :title="'用户详情' " :visible="visible" @close="visible = false" width="70%">
     <el-container direction="vertical">
-      <fm-grid url="/distribution/orderDetails?id=237" ref="grid" method="get">
+      <fm-grid url="/distribution/orderDetails" ref="grid" method="get" :params="['id']">
         <template slot-scope="{rows,loading,search}">
           <el-table
             :data="rows"
@@ -44,27 +46,45 @@
 
       </fm-grid>
     </el-container>
-
-  </div>
-
+  </el-dialog>
 
 </template>
 
 <script>
 
+  const form = () => {
+    return {
+      items: [],
+    }
+  };
+
   export default {
+    // components:{DictItem},
     mounted() {
+      this.$nextTick(() => {
+        const {id} = this.$route.query;
+        this.query = {...this.query, id};
+      });
+    },
+    data() {
+      return {
+        type: 'add',
+        loading: false,
+        visible: false,
+        fm: {},
+        query: {},
+        form: form(),
+      }
     },
 
     methods: {
-      data() {
-        return {}
-      }
+      view(id) {
+        this.visible = true;
+        /* this.fm.url = "/distribution/orderDetails?id=" + id;*/
+        this.query.id = id;
+        this.$refs.grid.search(this.query, 1);
+        // this.visible = true;
+      },
     }
   }
-
 </script>
-
-<style>
-
-</style>

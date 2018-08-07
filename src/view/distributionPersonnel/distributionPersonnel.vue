@@ -65,8 +65,8 @@
             <el-table-column
               label="操作">
               <template slot-scope="{row}">
-                <el-button type="text" @click="view(row.id)">查看</el-button>
-                <el-button type="text" @click="$refs.ae.edit(row.id)">编辑</el-button>
+                <el-button type="text" @click="$refs.ae.view(row.id)">查看</el-button>
+                <el-button type="text" @click="$refs.ae1.edit(row.id)">编辑</el-button>
                 <el-button type="text" @click="del(row.id)">删除</el-button>
               </template>
             </el-table-column>
@@ -74,7 +74,8 @@
         </template>
 
       </fm-grid>
-      <distribution-ae @success="$refs.grid.search()" ref="ae"/>
+      <distribution-ae @success="$refs.grid.search()" ref="ae1"/>
+      <distribution-detail @success="$refs.grid.search()" ref="ae"/>
     </el-container>
 
   </div>
@@ -84,43 +85,18 @@
 
 <script>
   import DistributionAe from "./distributionAe";
+  import DistributionDetail from "./distributionDetail";
   export default {
-    components: {DistributionAe},
+    components: {DistributionAe,DistributionDetail},
     mounted() {
       this.$nextTick(() => {
         const {name} = this.$route.query;
         const {account} = this.$route.query;
         this.query = {...this.query, name, account};
-        this.$shop.getCategories().then(categories => this.categories = categories);
-        this.$shop.getBrands().then(brands => this.brands = brands);
       });
     },
 
     methods: {
-
-      /*  loadCount() {
-          this.$axios.get('/wgoods/allCount')
-            .then(({data: {data}}) => {
-              this.count = data;
-            });
-        },*/
-
-      /*upper(id) {
-        this.$axios.post('/wgoods/upper', this.$axios.form({goodsId: id}))
-          .then(({data}) => {
-            this.$refs.grid.search();
-            this.loadCount();
-          });
-      },*/
-
-      /*  lower(id) {
-          this.$axios.post('/wgoods/lower', this.$axios.form({goodsId: id}))
-            .then(({data}) => {
-              this.$refs.grid.search();
-              this.loadCount();
-            });
-        },*/
-
       del(id) {
         this.$confirm(`确定要删除?`)
           .then(e => {
@@ -140,21 +116,11 @@
             this.loadCount();
           });
       },
-      categoryChange() {
-
-      },
-
-      gSearch(status) {
-        this.$refs.grid.search({...this.query, status}, 1);
-      }
-
     },
 
     data() {
       return {
         query: {},
-        categories: [],
-        brands: [],
         count: {},
       }
     }
