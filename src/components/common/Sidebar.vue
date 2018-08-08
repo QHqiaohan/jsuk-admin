@@ -50,7 +50,7 @@
           subs: [{
             index: "commodityList",
             title: "商品列表",
-            role: 'SHOP'
+            role: ['SHOP','ADMIN']
           }, {
             index: "commodityEvaluate",
             title: "商品评价",
@@ -156,10 +156,12 @@
           title: "APP管理",
           subs: [{
             index: "special",
-            title: "APP专题列表"
+            title: "APP专题列表",
+            role: 'ADMIN'
           },{
             index: "banner",
-            title: "APP banner图片设置"
+            title: "APP banner图片设置",
+            role: 'ADMIN'
           },]
         }, {
           icon: "el-icon-setting",
@@ -167,7 +169,8 @@
           title: "商户管理",
           subs: [{
             index: "business",
-            title: "商户列表"
+            title: "商户列表",
+            role: 'ADMIN'
           }]
         }, {
           icon: "el-icon-setting",

@@ -91,8 +91,8 @@
             <el-table-column
               label="操作">
               <template slot-scope="{row}">
-                <el-button type="text" @click="review(row.id,1)">审核通过</el-button>
-                <el-button type="text" @click="review(row.id,0)">驳回</el-button>
+                <el-button v-if="row.isCheck===0" type="text" @click="review(row.id,1)">审核通过</el-button>
+                <el-button v-if="row.isCheck===0" type="text" @click="review(row.id,0)">驳回</el-button>
                 <el-button type="text" @click="del(row.id)">删除</el-button>
               </template>
             </el-table-column>

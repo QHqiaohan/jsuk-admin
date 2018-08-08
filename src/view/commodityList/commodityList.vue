@@ -5,7 +5,7 @@
          商品列表
      </el-row>-->
     <el-container direction="vertical">
-      <fm-grid url="/wgoods/list" ref="grid" method="get" :params="['kw','brandId','categoryId','status']">
+      <fm-grid url="/wgoods/list" ref="grid" @init-data="initData" method="get" :params="['kw','brandId','status']">
 
 
         <template slot-scope="{rows,loading,search}">
@@ -22,12 +22,12 @@
             <!--添加-->
             <!--</el-button>-->
             <!--</div>-->
-            <!--<el-row style="padding-bottom: 20px;">
+            <el-row style="padding-bottom: 20px;">
                 <el-button @click="gSearch('all')">全部商品{{count.all}}</el-button>
                 <el-button @click="gSearch('wcm')">待审核{{count.wcm}}</el-button>
                 <el-button @click="gSearch('upr')">已上架{{count.upr}}</el-button>
                 <el-button @click="gSearch('lwr')">已下架{{count.lwr}}</el-button>
-            </el-row>-->
+            </el-row>
             <el-row style="padding-bottom: 20px;">
               <span>输入搜索:</span>
               <el-input v-model="query.kw" placeholder="商品名称/商品货号" style="width:200px;"/>
@@ -106,13 +106,20 @@
               width="100">
             </el-table-column>
             <el-table-column
+              label="是否推荐"
+              width="100">
+              <template slot-scope="{row}">
+                <el-switch v-model="switches[row.id]" @change="useChange(row.id,row)"></el-switch>
+              </template>
+            </el-table-column>
+            <el-table-column
               label="操作">
               <template slot-scope="{row}">
-                <el-button type="text" @click="review(row.id,1)">审核通过</el-button>
-                <el-button type="text" @click="upper(row.id)">上架</el-button>
-                <el-button type="text" @click="lower(row.id)">下架</el-button>
-                <el-button type="text" @click="del(row.id)">删除</el-button>
-                <el-button type="text" @click="review(row.id,0)">审核不通过</el-button>
+                <el-button v-if="row.userType === 4" type="text" @click="review(row.id,1)">审核通过</el-button>
+                <el-button v-if="row.userType === 1" type="text" @click="upper(row.id)">上架</el-button>
+                <el-button v-if="row.userType === 1" type="text" @click="lower(row.id)">下架</el-button>
+                <el-button  type="text" @click="del(row.id)">删除</el-button>
+                <el-button v-if="row.userType === 4" type="text" @click="review(row.id,0)">审核不通过</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -187,7 +194,30 @@
       categoryChange() {
 
       },
-
+      initData(rows) {
+        for (const {id, isRecommend} of rows) {
+          this.switches[id] = isRecommend === 1;
+        }
+        for (const {id, starNumber} of rows) {
+          this.values[id] = starNumber;
+        }
+      },
+      useChange(id) {
+        if (this.switches[id] === false) {
+          this.$confirm(`确定要禁用?`).then(e => {
+            this.$axios.post('/wgoods/forbidden', this.$axios.form({id, isRecommend: 0}))
+              .then(() => {
+                this.$refs.grid.search();
+              });
+          }).catch(e => {
+          })
+        } else {
+          this.$axios.post('/wgoods/forbidden', this.$axios.form({id, isRecommend: 1}))
+            .then(() => {
+              this.$refs.grid.search();
+            });
+        }
+      },
       gSearch(status) {
         this.$refs.grid.search({...this.query, status}, 1);
       }
@@ -200,6 +230,7 @@
         categories: [],
         brands: [],
         count: {},
+        switches: {},
       }
     }
   }

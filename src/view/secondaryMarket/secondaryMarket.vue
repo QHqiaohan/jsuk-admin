@@ -1,28 +1,18 @@
 <template>
 
   <div>
-    <el-row style="padding-bottom: 20px;">
-      二手信息
-    </el-row>
-
+    <!--<el-row style="padding-bottom: 20px;">
+         商品列表
+     </el-row>-->
     <el-container direction="vertical">
-      <fm-grid url="/activity/getSecondaryMarketList"  ref="grid" method="get" :params="['keywords']">
-
-
+      <fm-grid url="/secondGoods/list" ref="grid" method="get" :params="['kw']">
         <template slot-scope="{rows,loading,search}">
-
           <div class="filter-container">
-
             <el-row style="padding-bottom: 20px;">
-              <span>输入搜索：</span>
-              <el-input v-model="query.keywords" placeholder="二手商品名称/商品货号" style="width:200px;"/>
-              <el-button type="primary" @click="search(query,1)">搜索</el-button>
+              <span>输入搜索:</span>
+              <el-input v-model="query.kw" placeholder="发布内容" style="width:200px;"/>
+              <el-button @click="search(query,1)">查询结果</el-button>
             </el-row>
-
-            <el-row style="padding-bottom: 20px;">
-              <span style="font-size:20px">数据列表</span>
-            </el-row>
-
           </div>
           <el-table
             :data="rows"
@@ -32,55 +22,54 @@
             <el-table-column
               prop="id"
               label="编号"
-              width="160">
+              width="100">
             </el-table-column>
-
+            <el-table-column
+              prop="user.nickName"
+              label="发布人"
+              width="180">
+            </el-table-column>
             <el-table-column
               prop="mainImg"
-              label="商户头像"
-              width="80">
+              label="商品图片"
+              width="250">
               <template slot-scope="scope">
-                <img v-if="scope.row.imageArray[0]" :src="scope.row.imageArray[0]" alt="" style="width: 50px;height: 50px">
+                <ul>
+                  <li v-for="item in scope.row.imageArray" :key="item" style="float: left">
+                    <img :src="item" alt="" style="width: 50px;height: 50px">
+                  </li>
+                </ul>
+                <!--<img v-for="" :src="scope.row.images" alt="" style="width: 50px;height: 50px">-->
               </template>
             </el-table-column>
-
             <el-table-column
-              prop="title"
-              label="商品名称"
+              prop="content"
+              label="发布内容"
               width="200">
             </el-table-column>
             <el-table-column
-              prop="price"
-              label="价格/货号"
-              width="200">
+              prop="publishTime"
+              label="创建时间"
+              width="150">
             </el-table-column>
             <el-table-column
-              prop="examine"
               label="状态"
-              width="200">
+              width="100">
               <template slot-scope="scope">
-                <span v-if="scope.row.examine===0">未审核</span>
-                <span v-if="scope.row.examine===1">已审核</span>
+                <span v-if="scope.row.examine===0">待审核 </span>
+                <span v-else-if="scope.row.examine===1">审核通过 </span>
               </template>
             </el-table-column>
 
-            <el-table-column
-              prop="modularName"
-              label="商品分类"
-              width="200">
-            </el-table-column>
 
             <el-table-column
-              label="操作"
-              width="300">
+              label="操作">
               <template slot-scope="{row}">
-                <el-button type="text" @click="examineToPass(row.id)">审核通过 </el-button>
+                <el-button v-if="row.examine===0" type="text" @click="review(row.id,1)">审核通过</el-button>
                 <el-button type="text" @click="del(row.id)">删除</el-button>
               </template>
             </el-table-column>
-
           </el-table>
-
         </template>
 
       </fm-grid>
@@ -93,42 +82,34 @@
 </template>
 
 <script>
-  // import goodsEdit from './goodsEdit';
 
   export default {
-    /*   components: {goodsEdit},
-        mounted() {
-          this.$nextTick(() => {
-            const {kw} = this.$route.query;
-            this.query = {...this.query, kw};
-            this.$shop.getCategories().then(categories => this.categories = categories);
-            this.$shop.getBrands().then(brands => this.brands = brands);
-            this.loadCount();
-          });
-        },*/
+    mounted() {
+      this.$nextTick(() => {
+        const {kw} = this.$route.query;
+        this.query = {...this.query, kw};
+      });
+    },
 
     methods: {
-
-      examineToPass(id){
-        this.$axios.post('/activity/examineToPass', this.$axios.form({activityId: id}))
-          .then(({data}) => {
-            this.$refs.grid.search();
-            this.loadCount();
-          });
-      },
-
       del(id) {
-        this.$axios.post('/activity/deleteSecondActivity', this.$axios.form({activityId: id}))
-          .then(({data}) => {
+        this.$confirm(`确定要删除?`)
+          .then(e => {
+            this.$axios.post('/secondGoods/del', this.$axios.form({id}))
+              .then(() => {
+                this.$refs.grid.search();
+              });
+          })
+          .catch(e => {
+          });
+      },
+      review(id) {
+        this.$axios.post('/secondGoods/review', this.$axios.form({id}))
+          .then(() => {
             this.$refs.grid.search();
-            this.loadCount();
           });
       },
 
-
-      gSearch(status) {
-        this.$refs.grid.search({...this.query, status}, 1);
-      }
 
     },
 
@@ -137,7 +118,6 @@
         query: {},
         categories: [],
         brands: [],
-        switches: {},
         count: {},
       }
     }
