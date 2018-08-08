@@ -76,7 +76,6 @@
 
                     <div slot="header" class="clearfix">
                         <span>待处理事务</span>
-                        <el-button style="float: right; padding: 3px 0" type="text">添加</el-button>
                     </div>
 
                     <div>
