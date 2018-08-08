@@ -5,7 +5,7 @@
          商品列表
      </el-row>-->
     <el-container direction="vertical">
-      <fm-grid url="/wgoods/list" ref="grid" method="get" :params="['kw','brandId','status']">
+      <fm-grid url="/wgoods/list" ref="grid" @init-data="initData" method="get" :params="['kw','brandId','status']">
 
 
         <template slot-scope="{rows,loading,search}">
@@ -106,6 +106,13 @@
               width="100">
             </el-table-column>
             <el-table-column
+              label="是否推荐"
+              width="100">
+              <template slot-scope="{row}">
+                <el-switch v-model="switches[row.id]" @change="useChange(row.id,row)"></el-switch>
+              </template>
+            </el-table-column>
+            <el-table-column
               label="操作">
               <template slot-scope="{row}">
                 <el-button v-if="row.userType === 4" type="text" @click="review(row.id,1)">审核通过</el-button>
@@ -187,7 +194,30 @@
       categoryChange() {
 
       },
-
+      initData(rows) {
+        for (const {id, isRecommend} of rows) {
+          this.switches[id] = isRecommend === 1;
+        }
+        for (const {id, starNumber} of rows) {
+          this.values[id] = starNumber;
+        }
+      },
+      useChange(id) {
+        if (this.switches[id] === false) {
+          this.$confirm(`确定要禁用?`).then(e => {
+            this.$axios.post('/wgoods/forbidden', this.$axios.form({id, isRecommend: 0}))
+              .then(() => {
+                this.$refs.grid.search();
+              });
+          }).catch(e => {
+          })
+        } else {
+          this.$axios.post('/wgoods/forbidden', this.$axios.form({id, isRecommend: 1}))
+            .then(() => {
+              this.$refs.grid.search();
+            });
+        }
+      },
       gSearch(status) {
         this.$refs.grid.search({...this.query, status}, 1);
       }
@@ -200,6 +230,7 @@
         categories: [],
         brands: [],
         count: {},
+        switches: {},
       }
     }
   }
