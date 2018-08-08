@@ -56,7 +56,7 @@
             <el-table-column
               label="是否启用"
               width="200">
-              <template slot-scope="{row}">
+<!--              <template slot-scope="{row}">
                 <el-switch
                   active-text ="是"
                   inactive-text = "否"
@@ -65,6 +65,9 @@
                   v-model="switches[row.canUse]"
                   @change="setCanUse(row.id,row.canUse)" >
                 </el-switch>
+              </template>-->
+              <template slot-scope="{row}">
+                <el-switch v-model="switches[row.id]" @change="useChange(row.id,row)"></el-switch>
               </template>
             </el-table-column>
 
@@ -107,12 +110,6 @@
     },*/
 
     methods: {
-      initData(rows) {
-        for (const {id, canUse} of rows) {
-          this.switches[id] = canUse == 1;
-        }
-      },
-
       del(id) {
         this.$axios.post('/managerUser/deleteManagerUserById', this.$axios.form({managerUserId: id}))
           .then(({data}) => {
@@ -128,16 +125,34 @@
           //});
       },
 
-      setCanUse(id,canUse) {
+/*      setCanUse(id,canUse) {
         this.$axios.post('/managerUser/setCanUse', this.$axios.form({userId: id,can_user:canUse}))
-          /*.then(({data}) => {
+          /!*.then(({data}) => {
             this.$refs.grid.search();
             this.loadCount();
-          });*/
+          });*!/
+      },*/
+
+      useChange(id, row) {
+        if (this.switches[id] == false) {
+          this.$confirm(`确定要禁用?`).then(e => {
+            this.$axios.post('/managerUser/setCanUse', {id, can_user: 0})
+              .then(() => {
+                this.$refs.grid.search();
+              });
+          });
+        } else {
+          this.$axios.post('/managerUser/setCanUse', {id, can_user: 1})
+            .then(() => {
+              this.$refs.grid.search();
+            });
+        }
       },
 
-      toAddPage() {
-
+      initData(rows) {
+        for (const {id, canUse} of rows) {
+          this.switches[id] = canUse == 1;
+        }
       },
 
       gSearch(status) {
@@ -152,7 +167,7 @@
         categories: [],
         brands: [],
         switches: {},
-        count: {},
+        count: {}
       }
     }
   }

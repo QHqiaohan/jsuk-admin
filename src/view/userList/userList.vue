@@ -21,7 +21,7 @@
 
             <el-row style="padding-bottom: 20px;">
               <span style="font-size:20px">数据列表</span>
-              <span style="padding-left: 800px;">
+              <span style="padding-left: 1000px;">
               <el-button @click="exportData()">导出数据</el-button>
               </span>
             </el-row>
@@ -32,6 +32,11 @@
             stripe
             v-loading="loading"
             style="width: 100%;padding-bottom:20px;border-bottom:none;">
+            @selection-change="handleSelectionChange">
+            <el-table-column
+              type="selection"
+              width="25">
+            </el-table-column>
             <el-table-column
               prop="user.id"
               label="用户ID"
@@ -58,7 +63,6 @@
                 <span v-if="scope.row.user.level===3">金牌会员 </span>
               </template>
             </el-table-column>
-
 
             <el-table-column
               prop="consumeCount"
@@ -100,21 +104,15 @@
 </template>
 
 <script>
-  // import goodsEdit from './goodsEdit';
+  import FileSaver from 'file-saver'
+  import XLSX from 'xlsx'
 
   export default {
-    /*   components: {goodsEdit},
-        mounted() {
-          this.$nextTick(() => {
-            const {kw} = this.$route.query;
-            this.query = {...this.query, kw};
-            this.$shop.getCategories().then(categories => this.categories = categories);
-            this.$shop.getBrands().then(brands => this.brands = brands);
-            this.loadCount();
-          });
-        },*/
 
     methods: {
+      handleSelectionChange(val) {
+        this.multipleSelection = val;
+      },
 
       del(id) {
         this.$axios.post('/user/deleteUserById', this.$axios.form({userId: id}))
@@ -129,19 +127,26 @@
       },
 
       showDetail(id) {
-        //alert(id);
         this.$router.push({path: '/userDetail', query: {detailUserId: id}})
       },
-
 
       gSearch(status) {
         this.$refs.grid.search({...this.query, status}, 1);
       },
 
       //导出数据
-      exportData(){
-
-      }
+      exportData() {
+        /* generate workbook object from table */
+        var wb = XLSX.utils.table_to_book(document.querySelector('#out-table'))
+        /* get binary string as output */
+        var wbout = XLSX.write(wb, {bookType: 'xlsx', bookSST: true, type: 'array'})
+        try {
+          FileSaver.saveAs(new Blob([wbout], {type: 'application/octet-stream'}), '用户列表.xlsx')
+        } catch (e) {
+          if (typeof console !== 'undefined') console.log(e, wbout)
+        }
+        return wbout
+      },
 
     },
 
