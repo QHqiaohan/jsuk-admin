@@ -57,7 +57,7 @@
                             </template>-->
               <template slot-scope="{row}">
               <!--<el-switch v-model="switches[row.menuId]" @change="useChange(row.menuId,row)"></el-switch>-->
-                <el-switch v-model="switches[row.menuId]" @change="setMenu(row.menuId)"></el-switch>
+                <el-switch v-model="this.switches[row.menuId]" @change="setMenu(row.menuId)"></el-switch>
             </template>
             </el-table-column>
 
@@ -123,7 +123,9 @@
 
       //初始化,判断选中的管理员拥有哪些权限
       initUserMenu() {
-        //遍历所有权限列表
+        //遍历权限列表
+        alert(this.managerUserMenList.length);
+        alert(this.menuList.length);
         for(let i=0;i<this.managerUserMenList.length;i++){
           for(let j=0;j<this.menuList.length;j++){    //选中的管理员的权限
 /*            if(this.managerUserMenList[i].menuId==this.menuList[j].menuId){
@@ -133,7 +135,8 @@
               alert('false:'+i);
               this.judgeMenu[this.managerUserMenList[i].menuId]=false;
             }*/
-           this.switches[this.menuList[j].menuId]=this.managerUserMenList[i].menuId==this.menuList[j].menuId?true:false
+            this.switches[this.menuList[j].menuId]=this.managerUserMenList[i].menuId==this.menuList[j].menuId?true:false
+            alert(this.menuList[j].menuName+":"+this.switches[this.menuList[j].menuId])
           }
         }
       },

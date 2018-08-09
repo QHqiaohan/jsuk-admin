@@ -187,7 +187,11 @@
           subs: [
             {
               index: "userTiXianRecord",
-              title: "提现记录"
+              title: "用户提现记录"
+            },
+            {
+              index: "distributionUserTiXian",
+              title: "骑手提现记录"
             },
             {
               index: "userRechargeRecord",

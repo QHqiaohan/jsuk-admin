@@ -244,7 +244,14 @@ export default new Router({
         path: '/userTiXianRecord',
         component: resolve => require(['../view/userTiXianRecord/userTiXian.vue'], resolve),
         meta: {
-          title: '提现记录'
+          title: '用户提现记录'
+        }
+      },
+      {
+        path: '/distributionUserTiXian',
+        component: resolve => require(['../view/distributionUserTiXian/distributionUserTiXian.vue'], resolve),
+        meta: {
+          title: '骑手提现记录'
         }
       },
       {
