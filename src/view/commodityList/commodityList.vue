@@ -78,7 +78,7 @@
             <el-table-column
               prop="price"
               label="价格"
-              width="180">
+              width="140">
               <template slot-scope="scope">
                 <p v-for="item in scope.row.shopGoodsSize">
                   <span> {{item.sizeName}}:  ￥{{item.salesPrice }}</span>

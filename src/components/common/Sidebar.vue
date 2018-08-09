@@ -50,7 +50,7 @@
           subs: [{
             index: "commodityList",
             title: "商品列表",
-            role: ['SHOP','ADMIN']
+            role: ['SHOP', 'ADMIN']
           }, {
             index: "commodityEvaluate",
             title: "商品评价",
@@ -63,7 +63,7 @@
           subs: [{
             index: "orderList",
             title: "订单列表",
-            role: ['SHOP','ADMIN']
+            role: ['SHOP', 'ADMIN']
           }, {
             //   index: "orderDistribution",
             //   title: "同城配送订单"
@@ -77,11 +77,11 @@
           }, {
             index: "returnGoods",
             title: "退货申请处理",
-            role: ['SHOP','ADMIN']
+            role: ['SHOP', 'ADMIN']
           }, {
             index: "refund",
             title: "退款申请处理",
-            role: ['SHOP','ADMIN']
+            role: ['SHOP', 'ADMIN']
             // }, {
             //   index: "returnGoodsReason",
             //   title: "退货原因处理"
@@ -128,7 +128,7 @@
             index: "integralEdit",
             title: "积分设置",
             role: 'ADMIN'
-          // }, {
+            // }, {
             //   index: "couponList",
             //   title: "优惠卷列表"
             // }, {
@@ -158,7 +158,7 @@
             index: "special",
             title: "APP专题列表",
             role: 'ADMIN'
-          },{
+          }, {
             index: "banner",
             title: "APP banner图片设置",
             role: 'ADMIN'
@@ -178,7 +178,7 @@
           title: "配送管理",
           subs: [{
             index: "distributionPersonnel",
-            title: "用户列表"
+            title: "用户列表",
           }]
         }, {
           icon: "el-icon-setting",
@@ -205,7 +205,7 @@
               title: "成员管理",
               role: 'ADMIN'
             }, {
-              index: "addManagerUser",
+              index: "setting",
               title: "添加成员",
               role: 'ADMIN'
             },
@@ -217,10 +217,15 @@
           }, {
             icon: "el-icon-setting",
             index: "12",
-            title: "区域管理",
+            title: "设置管理",
             subs: [{
+              index: "setting",
+              title: "跑腿费",
+              role: 'ADMIN'
+            }, {
               index: "region",
-              title: "区域设置"
+              title: "区域设置",
+              role: 'ADMIN'
             }]
           },
           {
@@ -301,7 +306,6 @@
       });
     },
     methods: {
-
 
 
       auth(item) {
