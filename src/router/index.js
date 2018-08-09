@@ -305,7 +305,13 @@ export default new Router({
           title: '二手市场'
         }
       },
-
+      {
+        path: '/setting',
+        component: resolve => require(['../view/setting/setting.vue'], resolve),
+        meta: {
+          title: '跑腿费'
+        }
+      },
       {
         path: '/dashboard',
         component: resolve => require(['../components/page/Dashboard.vue'], resolve),
