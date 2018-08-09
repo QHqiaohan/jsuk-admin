@@ -8,7 +8,7 @@
     <div class="container">
       <div class="form-box">
 
-        <el-form :model="activity"  ref="activity" label-width="100px" class="demo-ruleForm">
+        <el-form :model="activity"  ref="activity" label-width="150px" class="demo-ruleForm">
 
           <el-form-item label=" 专题选择：" >
               <el-select v-model="activity.modularId" placeholder="请选择">
@@ -67,9 +67,19 @@
             <el-input type="textarea" placeholder="请输入简单介绍" rows="5" v-model="activity.content" ></el-input>
           </el-form-item>
 
+          <el-form-item label="是否推荐为热门：">
+            <template>
+              <div>
+                <el-radio v-model="activity.isRecommend" label="1" border>是</el-radio>
+                <el-radio v-model="activity.isRecommend" label="0" border>否</el-radio>
+              </div>
+            </template>
+          </el-form-item>
+
           <el-form-item>
             <el-button type="primary" @click="addVillageActivity('activity','images')">确定</el-button>
           </el-form-item>
+
 
         </el-form>
 
