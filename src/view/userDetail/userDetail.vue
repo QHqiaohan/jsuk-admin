@@ -120,7 +120,7 @@
               <span v-if="scope.row.payType===1">货到付款 </span>
               <span v-if="scope.row.payType===2">支付宝 </span>
               <span v-if="scope.row.payType===3">微信 </span>
-              <span v-if="scope.row.payType===4">银行卡 </span>
+              <!--<span v-if="scope.row.payType===4">银行卡 </span>-->
               </template>
             </el-table-column>
             <el-table-column
