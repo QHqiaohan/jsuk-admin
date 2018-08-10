@@ -21,9 +21,9 @@
 
             <el-row style="padding-bottom: 20px;">
               <span style="font-size:20px">数据列表</span>
-              <span style="padding-left: 1000px;">
-              <el-button @click="exportData()">导出数据</el-button>999
-              </span>
+              <!--<span style="padding-left: 1000px;">
+              <el-button @click="exportExcel()">导出数据</el-button>
+              </span>-->
             </el-row>
 
           </div>
@@ -32,11 +32,7 @@
             stripe
             v-loading="loading"
             style="width: 100%;padding-bottom:20px;border-bottom:none;">
-            @selection-change="handleSelectionChange">
-            <el-table-column
-              type="selection"
-              width="25">
-            </el-table-column>
+
             <el-table-column
               prop="user.id"
               label="用户ID"
@@ -110,9 +106,6 @@
   export default {
 
     methods: {
-      handleSelectionChange(val) {
-        this.multipleSelection = val;
-      },
 
       del(id) {
         this.$axios.post('/user/deleteUserById', this.$axios.form({userId: id}))
@@ -135,7 +128,7 @@
       },
 
       //导出数据
-      exportData() {
+      exportExcel() {
         /* generate workbook object from table */
         var wb = XLSX.utils.table_to_book(document.querySelector('#out-table'))
         /* get binary string as output */

@@ -33,7 +33,7 @@
             v-loading="loading"
             style="width: 100%;padding-bottom:20px;border-bottom:none;">
             <el-table-column
-              prop="id"
+              prop="phone"
               label="成员账号"
               width="160">
             </el-table-column>
@@ -47,6 +47,17 @@
               label="账号"
               width="200">
             </el-table-column>
+
+            <el-table-column
+              prop="userType"
+              label="类型"
+              width="200">
+              <template slot-scope="scope">
+                <span v-if="scope.row.userType===1">平台 </span>
+                <span v-if="scope.row.userType===2">商家 </span>
+              </template>
+            </el-table-column>
+
             <el-table-column
               prop="createTime"
               label="添加时间"
@@ -67,7 +78,7 @@
                 </el-switch>
               </template>-->
               <template slot-scope="{row}">
-                <el-switch v-model="switches[row.id]" @change="useChange(row.id,row)"></el-switch>
+                <el-switch v-model="switches[row.id]" @change="useChange(row.id)"></el-switch>
               </template>
             </el-table-column>
 
@@ -75,7 +86,7 @@
               label="操作"
               width="300">
               <template slot-scope="{row}">
-                <el-button type="text" @click="menuSetting(row.id)">权限设置 </el-button>
+                <!--<el-button type="text" @click="menuSetting(row.id)">权限设置 </el-button>-->
                 <el-button type="text" @click="toEditPage(row.id)">编辑</el-button>
                 <el-button type="text" @click="del(row.id)">删除</el-button>
               </template>
@@ -133,16 +144,17 @@
           });*!/
       },*/
 
-      useChange(id, row) {
+      useChange(id) {
+        alert(id);
         if (this.switches[id] == false) {
           this.$confirm(`确定要禁用?`).then(e => {
-            this.$axios.post('/managerUser/setCanUse', {id, can_user: 0})
+            this.$axios.post('/managerUser/setCanUse', this.$axios.form({user_id:id, canUse: 0}))
               .then(() => {
                 this.$refs.grid.search();
               });
           });
         } else {
-          this.$axios.post('/managerUser/setCanUse', {id, can_user: 1})
+          this.$axios.post('/managerUser/setCanUse', this.$axios.form({user_id:id, canUse: 1}))
             .then(() => {
               this.$refs.grid.search();
             });

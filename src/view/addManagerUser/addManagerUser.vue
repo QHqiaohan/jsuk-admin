@@ -18,11 +18,11 @@
             <el-input  v-model="managerUser.name"></el-input>
           </el-form-item>
 
-          <el-form-item label="设置账号：" prop="userName">
+          <el-form-item label="用户名：" prop="userName">
             <el-input  v-model="managerUser.userName" ></el-input>
           </el-form-item>
 
-            <el-form-item label="手机：" prop="phone">
+            <el-form-item label="手机号码：" prop="phone">
               <el-input  v-model="managerUser.phone" ></el-input>
             </el-form-item>
 
