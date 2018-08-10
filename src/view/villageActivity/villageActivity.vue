@@ -21,9 +21,9 @@
               </el-select>
           </el-form-item>
 
-          <el-form-item label="门店地址：" prop="address">
+         <!-- <el-form-item label="门店地址：" prop="address">
             <el-input  v-model="activity.address"></el-input>
-          </el-form-item>
+          </el-form-item>-->
 
           <el-form-item label="联系人：" prop="name">
             <el-input  v-model="activity.name" ></el-input>

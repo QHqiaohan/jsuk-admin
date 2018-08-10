@@ -190,6 +190,10 @@
               title: "用户提现记录"
             },
             {
+              index: "shopTiXianRecord",
+              title: "商家提现记录"
+            },
+            {
               index: "distributionUserTiXian",
               title: "骑手提现记录"
             },
@@ -209,15 +213,15 @@
               title: "成员管理",
               role: 'ADMIN'
             }, {
-              index: "setting",
+              index: "addManagerUser",
               title: "添加成员",
               role: 'ADMIN'
             },
-              {
+         /*     {
                 index: "menuManager",
                 title: "权限设置",
                 role: 'ADMIN'
-              }]
+              }*/]
           }, {
             icon: "el-icon-setting",
             index: "12",

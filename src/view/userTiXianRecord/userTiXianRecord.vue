@@ -6,7 +6,7 @@
     </el-row>
 
     <el-container direction="vertical">
-      <fm-grid url="/userTiXian/advanceSearchTiXianPage" ref="grid" method="get" :params="['tixianId','amountScope','categoryId','status']">
+      <fm-grid url="/userTiXian/advanceSearchUserTiXianPage" ref="grid" method="get" :params="['tixianId','amountScope','categoryId','status']">
 
 
         <template slot-scope="{rows,loading,search}">
@@ -59,7 +59,7 @@
               width="100">
             </el-table-column>
             <el-table-column
-              prop="username"
+              prop="user.nickName"
               label="用户名"
               width="120">
             </el-table-column>
@@ -107,7 +107,7 @@
               label="操作">
               <template slot-scope="{row}">
                 <span v-if="row.examine===1">已审核</span>
-                <span v-if="row.examine===0"> <el-button type="text" @click="tiXianExamine(row.id)">审核通过</el-button></span>
+                <span v-if="row.examine===0"> <el-button type="text" @click="tiXianExamine(row.id,row.user.id)">审核通过</el-button></span>
               </template>
             </el-table-column>
           </el-table>
@@ -126,27 +126,28 @@
   //import goodsEdit from './goodsEdit';
 
   export default {
-/*    components: {goodsEdit},
-    mounted() {
-      this.$nextTick(() => {
-        const {kw} = this.$route.query;
-        this.query = {...this.query, kw};
-        this.$shop.getCategories().then(categories => this.categories = categories);
-        this.$shop.getBrands().then(brands => this.brands = brands);
-        this.loadCount();
-      });
-    },*/
+    /*    components: {goodsEdit},
+        mounted() {
+          this.$nextTick(() => {
+            const {kw} = this.$route.query;
+            this.query = {...this.query, kw};
+            this.$shop.getCategories().then(categories => this.categories = categories);
+            this.$shop.getBrands().then(brands => this.brands = brands);
+            this.loadCount();
+          });
+        },*/
 
     methods: {
 
 
-      tiXianExamine(id) {
-        this.$axios.post('/userTiXian/tiXianExamine', this.$axios.form({tiXianId: id}))
+      tiXianExamine(tianxianId,userId) {
+        this.$axios.post('/userTiXian/tiXianExamine', this.$axios.form({tiXianId: tianxianId,uid:userId}))
           .then(({data}) => {
             this.$refs.grid.search();
             this.loadCount();
           });
       },
+
       categoryChange() {
 
       },

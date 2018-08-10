@@ -21,9 +21,9 @@
 
             <el-row style="padding-bottom: 20px;">
               <span style="font-size:20px">数据列表</span>
-              <span style="padding-left: 1000px;">
-              <el-button @click="exportData()">导出数据</el-button>999
-              </span>
+             <!-- <span style="padding-left: 1000px;">
+              <el-button @click="exportData()">导出数据</el-button>
+              </span>-->
             </el-row>
 
           </div>

@@ -241,8 +241,15 @@ export default new Router({
       //add end
 
       {
+        path: '/shopTiXianRecord',
+        component: resolve => require(['../view/shopTiXianRecord/shopTiXianRecord.vue'], resolve),
+        meta: {
+          title: '商家提现记录'
+        }
+      },
+      {
         path: '/userTiXianRecord',
-        component: resolve => require(['../view/userTiXianRecord/userTiXian.vue'], resolve),
+        component: resolve => require(['../view/userTiXianRecord/userTiXianRecord.vue'], resolve),
         meta: {
           title: '用户提现记录'
         }
