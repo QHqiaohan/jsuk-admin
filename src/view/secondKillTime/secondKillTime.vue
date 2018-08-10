@@ -64,7 +64,7 @@
               label="操作">
               <template slot-scope="{row}">
                 <el-button type="text" @click="$refs.ae.edit(row.id)">编辑</el-button>
-                <el-button type="text" @click="del(row.id,row.name)">删除</el-button>
+                <el-button type="text" @click="del(row.id,row)">删除</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -96,8 +96,8 @@
 
     methods: {
 
-      del(id, name) {
-        this.$confirm(`你确定要删除${name}?`)
+      del(id, row) {
+        this.$confirm(`你确定要删除 ${this.$pub.time(row.startTime)}-${this.$pub.time(row.endTime)}?`)
           .then(e => {
             this.$axios.delete('/shopRushBuy', {params: {id}})
               .then(() => {
