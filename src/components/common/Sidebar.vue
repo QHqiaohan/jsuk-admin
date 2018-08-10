@@ -42,6 +42,10 @@
           }, {
             index: "accountSetting",
             title: "个人信息"
+          }, {
+            index: "members",
+            title: "会员等级管理",
+            role: 'ADMIN'
           }]
         }, {
           icon: "el-icon-setting",
@@ -304,14 +308,13 @@
       // 通过 Event Bus 进行组件间通信，来折叠侧边栏
       // console.log(JSON.stringify(this.items));
       bus.$on("collapse", msg => {
-        localStorage.setItem('collapse',msg?'true':'false');
+        localStorage.setItem('collapse', msg ? 'true' : 'false');
         this.collapse = msg;
       });
     },
 
-    mounted(){
-      // this.collapse = localStorage.getItem('collapse') == 'true';
-      bus.$emit('collapse',localStorage.getItem('collapse') == 'true');
+    mounted() {
+      bus.$emit('collapse', localStorage.getItem('collapse') == 'true');
     },
 
     methods: {

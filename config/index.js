@@ -18,10 +18,10 @@ module.exports = {
           changeOrigin:true,
           pathRewrite:{}
       },
-      '/ms':{
-          target: 'https://www.easy-mock.com/mock/592501a391470c0ac1fab128',
-          changeOrigin: true
-      }
+      // '/ms':{
+      //     target: 'https://www.easy-mock.com/mock/592501a391470c0ac1fab128',
+      //     changeOrigin: true
+      // }
     },
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST
@@ -68,7 +68,7 @@ module.exports = {
     // Surge or Netlify already gzip all static assets for you.
     // Before setting to `true`, make sure to:
     // npm install --save-dev compression-webpack-plugin
-    productionGzip: false,
+    productionGzip: true,
     productionGzipExtensions: ['js', 'css'],
 
     // Run the build command with an extra argument to

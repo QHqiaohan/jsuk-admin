@@ -105,9 +105,10 @@
       }
     },
     mounted() {
-      if (document.body.clientWidth < 1500) {
-        this.collapseChage();
-      }
+      this.collapse =  localStorage.getItem('collapse') == 'true';
+      // if (document.body.clientWidth < 1500) {
+      //   this.collapseChage();
+      // }
     }
   }
 </script>
