@@ -1,6 +1,6 @@
 <template>
   <div class="login-wrap">
-    <div class="ms-title">后台管理系统</div>
+    <div class="ms-title">巨商U客后台管理系统</div>
     <div class="ms-login">
       <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="0px" class="demo-ruleForm">
         <el-form-item prop="username">
@@ -69,21 +69,6 @@
                   }
                 }
               })
-//                            .then(({status,data}) => {
-//                            console.log(status)
-//                            console.log(data)
-//                                const token = data && data.data && data.data.token;
-//                                if(token){
-//                                    localStorage.setItem('access-token',token);
-//                                    this.$axios.defaults.headers.common['access-token'] = token;
-//                                }
-//                                // this.$auth.load(()=>{
-//                                this.$router.push('/')
-//                                // })
-//                            }).catch(() =>{
-//                            setTimeout(()=>{this.loading = false},1000);
-//                        });
-
           } else {
             console.log('error submit!!');
             return false;
@@ -109,7 +94,7 @@
     text-align: center;
     font-size: 30px;
     color: #fff;
-
+    margin-left: -30px;
   }
 
   .ms-login {
@@ -117,8 +102,8 @@
     left: 50%;
     top: 50%;
     width: 300px;
-    height: 190px;
-    margin: -150px 0 0 -190px;
+    height: 230px;
+    margin: -150px 50px 0 -190px;
     padding: 40px;
     border-radius: 5px;
     background: #fff;
