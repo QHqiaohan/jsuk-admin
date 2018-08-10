@@ -31,12 +31,12 @@ Vue.prototype.$session = {
         }).catch(reject);
     })
   },
-  is(args){
-    if(!Array.isArray(args)){
+  is(args) {
+    if (!Array.isArray(args)) {
       args = [args];
     }
-    for(const arg of args){
-      if(this.type === arg){
+    for (const arg of args) {
+      if (this.type === arg) {
         return true;
       }
     }
@@ -71,13 +71,22 @@ Vue.filter("toF", (value, dt) => { //默认2位小数点;
 });
 
 
-
 const time = (value, dt) => { //默认2位小数点;
-  let v = value||'', n = dt || 8;
+  let v = value || '', n = dt || 8;
   const len = v.length;
   return v.substring(len - n, len);
 };
 
+const percent = (value, dt) => {
+  const num = parseFloat(value);
+  dt = dt || 0;
+  if (isNaN(num)) {
+    return '-';
+  }
+  return (num * 100).toFixed(dt) + '%';
+};
+
+Vue.filter('percent', percent);
 /**
  * vue 通用选择器
  * **/
@@ -130,7 +139,7 @@ const toQuery = function (pms) {
 };
 
 
-Vue.prototype.$pub = {Regex, toParams, toQuery,time};
+Vue.prototype.$pub = {Regex, toParams, toQuery, time};
 
 
 const vue = new Vue({

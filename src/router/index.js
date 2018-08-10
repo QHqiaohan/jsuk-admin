@@ -152,10 +152,10 @@ export default new Router({
       },
 
       {
-        path: '/membershipGrade',
-        component: resolve => require(['../view/membershipGrade/membershipGrade.vue'], resolve),
+        path: '/members',
+        component: resolve => require(['../view/member/MemberList.vue'], resolve),
         meta: {
-          title: '会员等级'
+          title: '会员等级管理'
         }
       }, {
         path: '/secondKillList',
