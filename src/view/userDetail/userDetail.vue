@@ -123,10 +123,10 @@
               <!--<span v-if="scope.row.payType===4">银行卡 </span>-->
               </template>
             </el-table-column>
-            <el-table-column
+            <!--<el-table-column
               value="APP订单"
               label="订单来源">
-            </el-table-column>
+            </el-table-column>-->
             <el-table-column
               label="订单状态">
               <template slot-scope="scope">
@@ -189,9 +189,10 @@
             this.user=data.user;
             this.userOrderList=data.userOrderList;
             this.userAddressList=data.userAddressList;
+            //初始化userAddressList默认地址
+            this.initDefault(this.userAddressList);
           });
 
-        this.initDefault(this.userAddressList);
       },
 
       defaultChange(id,row) {
@@ -214,7 +215,7 @@
 
       initDefault(rows) {
         for (const {id, isDefault} of rows) {
-          alert("id:"+id+",isDefault:"+isDefault);
+          //alert("id:"+id+",isDefault:"+isDefault);
           this.switches[id] = isDefault == 1;
         }
       },

@@ -80,11 +80,11 @@
 
                     <div>
                       <ul style="font-size: 20px;">
-                        <li><el-button type="text" @click="toNotPaidOrderPage()">待付款订单 {{plateformIndexVo.notPaidOrderCount}}</el-button></li>
-                        <li><el-button type="text" @click="toNotSendOrderPage()">待发货订单 {{plateformIndexVo.notSendOrderCount}}</el-button></li>
-                        <li><el-button type="text" @click="toFinishedOrderPage()">已完成订单 {{plateformIndexVo.finishedOrderCount}}</el-button></li>
-                        <li><el-button type="text" @click="toAlreadySendOrderPage()">已发货订单 {{plateformIndexVo.alreadySendOrderCount}}</el-button></li>
-                        <li><el-button type="text" @click="toNotDealRefundOrderPage()">待处理退款申请 {{plateformIndexVo.notDealRefund}}</el-button></li>
+                        <li><el-button type="text" @click="toOrderPage('dpay')">待付款订单 {{plateformIndexVo.notPaidOrderCount}}</el-button></li>
+                        <li><el-button type="text" @click="toOrderPage('wdlr')">待发货订单 {{plateformIndexVo.notSendOrderCount}}</el-button></li>
+                        <li><el-button type="text" @click="toOrderPage('succ')">已完成订单 {{plateformIndexVo.finishedOrderCount}}</el-button></li>
+                        <li><el-button type="text" @click="toOrderPage('dlrd')">已发货订单 {{plateformIndexVo.alreadySendOrderCount}}</el-button></li>
+                        <li><el-button type="text" @click="toOrderPage('rfmy')">待处理退款申请 {{plateformIndexVo.notDealRefund}}</el-button></li>
                       </ul>
                     </div>
 <!--                    <el-table :data="todoList" :show-header="false" height="304" style="width: 100%;font-size:14px;">
@@ -211,21 +211,11 @@
       },
 
       methods:{
-        toNotPaidOrderPage(){
-          this.$router.push({path: '/orderList', query: {status: 0}})
-        },
-        toNotSendOrderPage(){
-          this.$router.push({path: '/orderList', query: {status: 1}})
-        },
-        toFinishedOrderPage(){
-          this.$router.push({path: '/orderList', query: {status: 3}})
-        },
-        toAlreadySendOrderPage(){
-          this.$router.push({path: '/orderList', query: {status: 2}})
-        },
-        toNotDealRefundOrderPage(){
-          this.$router.push({path: '/orderList', query: {status: 4}})
+
+        toOrderPage(status){
+          this.$router.push({path: '/orderList', query: {status: status}})
         }
+
       },
 
         name: 'dashboard',

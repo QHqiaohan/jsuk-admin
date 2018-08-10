@@ -6,10 +6,42 @@
     </el-row>
 
     <el-container direction="vertical">
-      <fm-grid url="/userTiXian/searchDistributionUserTiXian" ref="grid" method="get" >
+      <fm-grid url="/userTiXian/searchDistributionUserTiXian" ref="grid" method="get" :params="['tixianId','amountScope','categoryId','status']">
 
 
         <template slot-scope="{rows,loading,search}">
+
+          <div class="filter-container">
+          <el-row style="padding-bottom: 20px;">
+            <span>流水号：</span>
+            <el-input v-model="query.tixianId" placeholder="充值流水号" style="width:200px;"/>
+            <span>金额范围：</span>
+            <el-select v-model="query.amountScope" v-bind:loading="null" placeholder="请选择金额范围">
+              <el-option
+                value="0-500">
+                0-500
+              </el-option>
+              <el-option
+                value="500-1000">
+                500-1000
+              </el-option>
+              <el-option
+                value="1000-1500">
+                1000-1500
+              </el-option>
+              <el-option
+                value="1500-2000">
+                1500-2000
+              </el-option>
+              <el-option
+                value="2000-*">
+                2000以上
+              </el-option>
+            </el-select>
+
+            <el-button @click="search(query,1)">高级检索</el-button>
+          </el-row>
+          </div>
 
           <el-table
             :data="rows"
