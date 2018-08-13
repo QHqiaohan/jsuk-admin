@@ -64,6 +64,14 @@
             </el-table-column>
             <el-table-column
               prop="mainImg"
+              label="商品主图"
+              width="120">
+              <template slot-scope="scope">
+                <img :src="scope.row.mainImage" alt="" style="width: 50px;height: 50px">
+              </template>
+            </el-table-column>
+            <el-table-column
+              prop="mainImg"
               label="商品图片"
               width="120">
               <template slot-scope="scope">
