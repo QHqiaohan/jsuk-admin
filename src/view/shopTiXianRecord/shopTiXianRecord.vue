@@ -141,8 +141,8 @@
 
 
       tiXianExamine(id,mid) {
-        alert(id);
-        alert(mid);
+       // alert(id);
+       // alert(mid);
         this.$axios.post('/userTiXian/shopTiXianExamine', this.$axios.form({tiXianId: id,shopManagerId:mid}))
           .then(({data}) => {
             this.$refs.grid.search();
