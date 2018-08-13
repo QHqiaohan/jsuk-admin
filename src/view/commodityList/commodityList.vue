@@ -64,6 +64,14 @@
             </el-table-column>
             <el-table-column
               prop="mainImg"
+              label="商品主图"
+              width="120">
+              <template slot-scope="scope">
+                <img :src="scope.row.mainImage" alt="" style="width: 50px;height: 50px">
+              </template>
+            </el-table-column>
+            <el-table-column
+              prop="mainImg"
               label="商品图片"
               width="120">
               <template slot-scope="scope">
@@ -89,10 +97,12 @@
               prop="status"
               label="状态"
               width="100">
-              <template slot-scope="scope">
-                <span v-if="scope.row.status===0">待审核 </span>
-                <span v-else-if="scope.row.status===1">在售 </span>
-                <span v-else>已下架 </span>
+              <template slot-scope="{row}">
+                <dict :dkey="row.status" code="ShopGoodsStatus">
+                  <template slot-scope="{data}">
+                    {{data.value}}
+                  </template>
+                </dict>
               </template>
             </el-table-column>
             <el-table-column
@@ -115,11 +125,11 @@
             <el-table-column
               label="操作">
               <template slot-scope="{row}">
-                <el-button v-if="row.userType === 4" type="text" @click="review(row.id,1)">审核通过</el-button>
-                <el-button v-if="row.userType === 1" type="text" @click="upper(row.id)">上架</el-button>
-                <el-button v-if="row.userType === 1" type="text" @click="lower(row.id)">下架</el-button>
+                <el-button v-if="row.status === 0" type="text" @click="review(row.id,1)">审核通过</el-button>
+                <el-button v-if="row.status === 1" type="text" @click="lower(row.id)">下架</el-button>
+                <el-button v-if="row.status === 2" type="text" @click="upper(row.id)">上架</el-button>
                 <el-button  type="text" @click="del(row.id)">删除</el-button>
-                <el-button v-if="row.userType === 4" type="text" @click="review(row.id,0)">审核不通过</el-button>
+                <!--<el-button v-if="row.userType === 4" type="text" @click="review(row.id,0)">审核不通过</el-button>-->
               </template>
             </el-table-column>
           </el-table>
@@ -198,9 +208,9 @@
         for (const {id, isRecommend} of rows) {
           this.switches[id] = isRecommend === 1;
         }
-        for (const {id, starNumber} of rows) {
-          this.values[id] = starNumber;
-        }
+        // for (const {id, starNumber} of rows) {
+        //   this.values[id] = starNumber;
+        // }
       },
       useChange(id) {
         if (this.switches[id] === false) {
