@@ -21,9 +21,9 @@
               </el-select>
           </el-form-item>
 
-         <!-- <el-form-item label="门店地址：" prop="address">
+          <el-form-item label="门店地址：" prop="address">
             <el-input  v-model="activity.address"></el-input>
-          </el-form-item>-->
+          </el-form-item>
 
           <el-form-item label="联系人：" prop="name">
             <el-input  v-model="activity.name" ></el-input>
@@ -61,7 +61,6 @@
               </div>
             </div>
           </el-form-item>
-
 
           <el-form-item label="文字介绍：" prop="content">
             <el-input type="textarea" placeholder="请输入简单介绍" rows="5" v-model="activity.content" ></el-input>
@@ -144,6 +143,8 @@
         console.log(file)
         let param = new FormData(); //创建form对象
         param.append('file', file, file.name);//通过append向form对象添加数据
+        alert(1314666);
+        alert(file.name);
         this.$axios.post('/upload/imgToOSS', param)
           .then(res => {
             if (res.data.code === 200) {

@@ -88,17 +88,7 @@
                 <span v-if="scope.row.status===2">拒绝</span>
               </template>
             </el-table-column>
-            <!--<el-table-column
-              prop="status"
-              label="状态"
-              width="100">
-              <template slot-scope="scope">
-                <span v-if="scope.row.status===0">处理中</span>
-                <span v-if="scope.row.status===1">已提现</span>
-                <span v-if="scope.row.status===2">提现失败</span>
-                <span v-if="scope.row.status===3">取消</span>
-              </template>
-            </el-table-column>-->
+
             <el-table-column
               label="操作">
               <template slot-scope="{row}">
