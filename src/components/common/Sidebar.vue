@@ -56,6 +56,10 @@
             title: "商品列表",
             role: ['SHOP', 'ADMIN']
           }, {
+            index: "goodsCategory",
+            title: "商品分类",
+            role: ['ADMIN']
+          }, {
             index: "commodityEvaluate",
             title: "商品评价",
             role: 'SHOP'

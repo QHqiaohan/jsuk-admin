@@ -84,6 +84,13 @@
               width="180">
             </el-table-column>
             <el-table-column
+              label="品牌"
+              width="140">
+              <template slot-scope="{row}">
+                {{row.brandInfo}}
+              </template>
+            </el-table-column>
+            <el-table-column
               prop="price"
               label="价格"
               width="140">

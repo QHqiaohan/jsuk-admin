@@ -24,6 +24,12 @@ export default new Router({
           title: '商品列表'
         }
       }, {
+        path: '/goodsCategory',
+        component: resolve => require(['../view/goods/goodsCategory.vue'], resolve),
+        meta: {
+          title: '商品分类'
+        }
+      }, {
         path: '/commodityAdd',
         component: resolve => require(['../view/commodityAdd/commodityAdd.vue'], resolve),
         meta: {
