@@ -80,9 +80,7 @@
             <el-button type="primary" @click="addVillageActivity('activity','images')">确定</el-button>
           </el-form-item>
 
-
         </el-form>
-
       </div>
     </div>
   </div>
