@@ -341,7 +341,6 @@
           background-color: #ffffff;
           p{
             text-align: center;
-
           }
         }
       }
