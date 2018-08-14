@@ -132,11 +132,11 @@
             <el-table-column
               label="操作">
               <template slot-scope="{row}">
-                <el-button v-if="row.status === 0" type="text" @click="review(row.id,1)">审核通过</el-button>
+                <el-button v-if="row.status === 0 &&row.userType === 4" type="text" @click="review(row.id,1)">审核通过</el-button>
                 <el-button v-if="row.status === 1" type="text" @click="lower(row.id)">下架</el-button>
                 <el-button v-if="row.status === 2" type="text" @click="upper(row.id)">上架</el-button>
                 <el-button  type="text" @click="del(row.id)">删除</el-button>
-                <!--<el-button v-if="row.userType === 4" type="text" @click="review(row.id,0)">审核不通过</el-button>-->
+                <el-button v-if="row.userType === 4" type="text" @click="review(row.id,0)">审核不通过</el-button>
               </template>
             </el-table-column>
           </el-table>
