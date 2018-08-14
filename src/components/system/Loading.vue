@@ -5,7 +5,7 @@
  <div class="loading">
    <div class="wrapper">
      <div class="inner"/>
-     <div class="text">加载中...</div>
+       <div class="text">加载中...</div>
    </div>
  </div>
 

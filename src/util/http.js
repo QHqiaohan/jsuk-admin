@@ -12,7 +12,7 @@ const Axios = axios.create({
 });
 Axios.interceptors.request.use(
   config => {
-    let token = localStorage.getItem('token');
+    let token = localStorage.getItem('admin-token');
     if (token) {
       config.headers['access-token'] = token;
     }

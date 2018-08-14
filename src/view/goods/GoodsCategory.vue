@@ -18,7 +18,7 @@
                 </span>
               </li>
               <li>
-                <el-button type="text" @click="$refs.ae.add(0)">添加</el-button>
+                <el-button type="success" @click="$refs.ae.add(0)">添加</el-button>
               </li>
             </ul>
           </div>
@@ -28,8 +28,8 @@
               <p>
                 {{item.name}}
                 <span class="two-item-edit" style="float: right;margin-top: -5px;">
-                  <el-button type="text" @click="$refs.ae.edit(item)">修改</el-button>
-                  <el-button type="text" @click="del(item)">删除</el-button>
+                  <el-button type="primary" @click="$refs.ae.edit(item)">修改</el-button>
+                  <el-button type="danger" @click="del(item)">删除</el-button>
                 </span>
               </p>
               <ul class="after">
@@ -38,31 +38,30 @@
                   <div>
                     <img :src="itemTwo.icon" alt="">
                   </div>
-                  <p>
+                  <p class="className">
                     {{itemTwo.name}}
                   </p>
                   <span class="edit-item">
-                    <el-button type="text" @click="$refs.ae.edit(itemTwo)">修改</el-button>
-                    <el-button type="text" @click="del(itemTwo)">删除</el-button>
+                    <el-button type="primary" @click="$refs.ae.edit(itemTwo)">修改</el-button>
+                    <el-button type="danger" @click="del(itemTwo)">删除</el-button>
                   </span>
                 </li>
                 <li class="image-item image-add-item">
-                  <el-button type="text" @click="$refs.ae.add(item.id)">添加</el-button>
+                  <el-button type="success" @click="$refs.ae.add(item.id)">添加</el-button>
                 </li>
               </ul>
+
+            </div>
+            <div class="after btnBox">
+              <div class="classIficatListBox">
+                <p style="border: none ;text-align: center">
+                  <el-button @click="$refs.ae.add(lv1Item.id)" type="success">添加</el-button>
+                </p>
+              </div>
             </div>
           </div>
-
-          <div class="classIficatRight">
-            <div class="classIficatListBox">
-              <p>
-                <el-button @click="$refs.ae.add(lv1Item.id)" type="text">添加</el-button>
-              </p>
-            </div>
-          </div>
-
-
         </div>
+
       </div>
     </el-container>
 
@@ -205,17 +204,19 @@
     }
     .classIficatCont {
       padding: 0.2rem 0.2rem 0.2rem 0;
+      display: flex;
+      flex: 1;
       /*position: relative;*/
       .classIficatLeft {
         /*position: fixed;*/
         left: 0;
         /*top: 3.2rem;*/
         /*bottom: 1.1rem;*/
-        overflow: auto;
-        width: 30%;
+        width: 200px;
+        flex: none;
         height: auto;
         background-color: #ffffff;
-        float: left;
+        /*float: left;*/
         ul {
           li {
             text-align: center;
@@ -249,9 +250,9 @@
           }
         }
       }
-      .classIficatLeft::-webkit-scrollbar {
-        display: none;
-      }
+      /*.classIficatLeft::-webkit-scrollbar {*/
+        /*display: none;*/
+      /*}*/
       .image-item {
         padding: 5px;
         position: relative;
@@ -279,9 +280,9 @@
 
       //隐藏滚动条！
       .classIficatRight {
-        width: 70%;
-        float: right;
-        overflow-y: scroll;
+        padding-left: 15px;
+        /*flex: 1;*/
+        /*overflow-y: scroll;*/
 
         .two-item-edit {
           display: none;
@@ -293,16 +294,17 @@
         .classIficatListBox {
           margin-bottom: 10px;
           p {
-            font-size: 24px;
+            font-size: 16px;
             color: #2b2b2b;
-            margin-left: 10px;
-            /*line-height: 0.6rem;*/
+            padding-left: 15px;
+            line-height:40px;
+            border-bottom: 1px solid #cccccc;
           }
           ul {
             padding: 30px 010px 0;
-            background-color: #ffffff;
+            /*background-color: #ffffff;*/
             li {
-              width: 33%;
+              width: 200px;
               margin-bottom: 20px;
               float: left;
               a {
@@ -320,13 +322,25 @@
                     margin: auto;
                   }
                 }
-                p {
-                  color: #2b2b2b;
-                  font-size: 0.26rem;
-                  text-align: center;
-                }
+
               }
             }
+          }
+          .className {
+            color: #2b2b2b;
+            font-size: 0.12rem;
+            text-align: center;
+            border: none;
+          }
+        }
+      }
+      .btnBox{
+        width: 100%;
+        clear: both;
+        .classIficatListBox{
+          background-color: #ffffff;
+          p{
+            text-align: center;
           }
         }
       }
