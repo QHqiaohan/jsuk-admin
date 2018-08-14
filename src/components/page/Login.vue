@@ -61,7 +61,7 @@
               .then(res => {
                 if (res.status === 200) {
                   if (res.data.code === 200) {
-                    localStorage.setItem('token', res.data.data.token);
+                    localStorage.setItem('admin-token', res.data.data.token);
                     this.$session.load().then(() => {
                       this.$router.push('/');
                     });

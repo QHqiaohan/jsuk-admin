@@ -66,7 +66,7 @@
       handleCommand(command) {
         if (command == 'loginout') {
           this.$axios.post('/adm/quit').then(()=>{
-            localStorage.setItem('token',null);
+            localStorage.setItem('admin-token',null);
             this.$router.push('/login');
           });
         }
