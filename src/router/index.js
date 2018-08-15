@@ -144,6 +144,12 @@ export default new Router({
           title: '用户列表'
         }
       }, {
+        path: '/feedBackList',
+        component: resolve => require(['../view/feedBackList/feedBackList.vue'], resolve),
+        meta: {
+          title: '意见反馈'
+        }
+      },{
         path: '/userDetail',
         component: resolve => require(['../view/userDetail/userDetail.vue'], resolve),
         meta: {

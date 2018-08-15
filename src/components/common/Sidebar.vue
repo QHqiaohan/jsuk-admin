@@ -119,6 +119,10 @@
             index: "userList",
             title: "用户列表",
             role: 'ADMIN'
+          },{
+            index: "feedBackList",
+            title: "意见反馈",
+            role: 'ADMIN'
           }]
         }, {
           icon: "el-icon-setting",
