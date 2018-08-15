@@ -30,6 +30,19 @@ class Shop {
     });
   }
 
+  getCities(){
+    return new Promise((resolve, reject) => {
+      if (this.cities) {
+        return resolve(this.cities);
+      }
+      this.axios.get('/cities/all')
+        .then(({data: {data}}) => {
+          this.cities = data;
+          resolve(this.cities);
+        }).catch(reject);
+    });
+  }
+
   getLabels(){
     return new Promise((resolve,reject) =>{
       if(this.labels){
@@ -52,6 +65,19 @@ class Shop {
         .then(({data: {data}}) => {
           this.attributes = data;
           resolve(this.attributes);
+        }).catch(reject);
+    });
+  }
+
+  getWCities(){
+    return new Promise((resolve,reject) =>{
+      if(this.wCities){
+        return resolve(this.wCities);
+      }
+      this.axios.get('/cities/wall')
+        .then(({data: {data}}) => {
+          this.wCities = data;
+          resolve(this.wCities);
         }).catch(reject);
     });
   }

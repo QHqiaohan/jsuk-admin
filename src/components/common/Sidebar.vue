@@ -46,6 +46,10 @@
             index: "members",
             title: "会员等级管理",
             role: 'ADMIN'
+          }, {
+            index: "cities",
+            title: "开通城市管理",
+            role: 'ADMIN'
           }]
         }, {
           icon: "el-icon-setting",
