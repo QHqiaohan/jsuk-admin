@@ -18,6 +18,12 @@ export default new Router({
           title: '个人信息'
         }
       }, {
+        path: '/cities',
+        component: resolve => require(['../view/sys/OpenCitiesList.vue'], resolve),
+        meta: {
+          title: '开通城市'
+        }
+      }, {
         path: '/commodityList',
         component: resolve => require(['../view/commodityList/commodityList.vue'], resolve),
         meta: {
