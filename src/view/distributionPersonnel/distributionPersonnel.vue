@@ -8,11 +8,11 @@
       <fm-grid url="/distribution/list" ref="grid" method="get" :params="['account','name','status']">
         <template slot-scope="{rows,loading,search}">
           <div class="filter-container">
-            <el-row style="padding-bottom: 20px;">
-              <el-button @click="gSearch()">全部骑手{{count.all}}</el-button>
-              <el-button @click="gSearch(0)">待审核{{count.wcm}}</el-button>
-              <el-button @click="gSearch(1)">审核通过{{count.cmp}}</el-button>
-            </el-row>
+            <!--<el-row style="padding-bottom: 20px;">-->
+              <!--<el-button @click="gSearch()">全部骑手{{count.all}}</el-button>-->
+              <!--<el-button @click="gSearch(0)">待审核{{count.wcm}}</el-button>-->
+              <!--<el-button @click="gSearch(1)">审核通过{{count.cmp}}</el-button>-->
+            <!--</el-row>-->
             <el-row style="padding-bottom: 20px;">
               <span>用户账号:</span>
               <el-input v-model="query.account" placeholder="用户ID/账号" style="width:200px;"/>
@@ -70,7 +70,7 @@
             <el-table-column
               label="操作">
               <template slot-scope="{row}">
-                <el-button v-if="row.status === 0 &&$session.is('ADMIIN')" type="text" @click="review(row.id)">审核通过
+                <el-button v-if="row.status === 0 && $session.is('ADMIN')" type="text" @click="review(row.id)">审核通过
                 </el-button>
                 <el-button type="text" @click="$refs.ae.view(row.id)">查看</el-button>
                 <el-button type="text" @click="$refs.ae1.edit(row.id)">编辑</el-button>
@@ -100,7 +100,7 @@
       this.$nextTick(() => {
         const {name,account,status} = this.$route.query;
         this.query = {...this.query, name, account,status};
-        this.loadCount();
+        // this.loadCount();
       });
     },
 
